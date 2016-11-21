@@ -10,9 +10,10 @@
  * The /greeting example with execute the "greet"- Method of the GreetingController class,
  * which is located in the namespace Source\Controller
  */
-$app->get("/greeting", '\Source\Controller\GreetingController:greet');
+$app->get("/greeting", '\Source\Controller\GreetingController:greet')->setName("greet");
 
 /*
  * The extended Hello-World example, featuring Views.
  */
 $app->get('/[{name}]', '\Source\Controller\GreetingController:greetWithName');
+
