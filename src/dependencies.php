@@ -17,3 +17,18 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+// add Twig-Views to the application
+$container['view'] = function($c){
+    $settings = $c->get('settings')['renderer'];
+
+    $view = new \Slim\Views\Twig( $settings['template_path'] , [
+        'cache' => false,
+    ]);
+
+    $view->addExtension(new \Slim\Views\TwigExtension(
+        $c->router,
+        $c->request->getUri()
+    ));
+    return $view;
+};
