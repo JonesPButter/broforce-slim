@@ -7,6 +7,8 @@ class RegistrationController extends AbstractController
 
     public function index($request, $response, $args){
         //$response->getBody()->write("Registration-View in progress...");
+        $messages = $this->ci->get('flash')->getMessages();
+        $this->ci->get('view')->getEnvironment()->addGlobal('messages', $messages);
         return $this->ci->get('view')->render($response, 'register.twig');
     }
 
@@ -24,10 +26,12 @@ class RegistrationController extends AbstractController
             $user = new User($name,$email,$hashed_password);
             $response->getBody()->write(var_dump($user));
         } else{
-            //hier muss noch eine flash Message angezeigt werden
-            $response->getBody()->write("Passwörter nicht identsich");
-        }
+            $this->ci->get('flash')->addMessage('RegisterForm', 'Please fill in the whole form and check your passwords.');
 
-        //return $this->ci->get('view')->render($response, 'register.twig');
+            //$url = $this->router->pathFor('register', ['body' => $parsedBody]);
+            //return $response->withStatus(302)->withHeader('Location', $url);
+            $uri = $request->getUri()->withPath($this->ci->get('router')->pathFor('register'));
+            return $response = $response->withRedirect($uri, 403);
+        }
     }
 }
