@@ -21,17 +21,21 @@ class RegistrationController extends AbstractController
         $password_one = $parsedBody['password_one'];
         $password_two = $parsedBody['password_two'];
         // Email Validation: && !filter_var($email, FILTER_VALIDATE_EMAIL)
-        if($password_one == $password_two){
+        if(!empty($password_one) && !empty($name) && !empty($email) && $password_one == $password_two){
             $hashed_password = password_hash($password_one, PASSWORD_DEFAULT);
             $user = new User($name,$email,$hashed_password);
-            $response->getBody()->write(var_dump($user));
+            $uri = $request->getUri()->withPath($this->ci->get('router')->pathFor('register.success'));
+            return $response = $response->withRedirect($uri, 403);
         } else{
             $this->ci->get('flash')->addMessage('RegisterForm', 'Please fill in the whole form and check your passwords.');
 
-            //$url = $this->router->pathFor('register', ['body' => $parsedBody]);
-            //return $response->withStatus(302)->withHeader('Location', $url);
             $uri = $request->getUri()->withPath($this->ci->get('router')->pathFor('register'));
             return $response = $response->withRedirect($uri, 403);
         }
+    }
+
+    public function success($request, $response, $args){
+        //$response->getBody()->write("Hello");
+        return $this->ci->get('view')->render($response, 'registrationSuccess.twig');
     }
 }

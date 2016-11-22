@@ -27,12 +27,14 @@
                         <button type="submit" class="btn btn-default">Register me!</button>
 
                     </form>
-                    <div class="text-center">
-                        {% if messages %}
-                            {{ messages['RegisterForm'] | json_encode }}
-                        {% endif %}
-                    </div>
                 </div>
+                {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        {{ messages['RegisterForm'] | json_encode }}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

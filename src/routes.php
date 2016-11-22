@@ -22,6 +22,9 @@ $app->get("/home", '\Source\Controller\HomeController:index')->setName("home");
 
 
 // ************** Registration - Routes **************
+
+$app->get("/register/success", '\Source\Controller\RegistrationController:success')->setName("register.success");
+
 /*
  * The Index - Page
  */

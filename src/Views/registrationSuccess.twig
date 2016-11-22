@@ -1,0 +1,9 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1>Thanks, for signing in!</h1>
+        <p>Take a look at our Homepage.</p>
+        <p><a class="btn btn-primary btn-lg" href="{{ path_for("home") }}" role="button">Home</a></p>
+    </div>
+{% endblock %}
