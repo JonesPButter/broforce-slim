@@ -10,20 +10,16 @@
  */
 
 namespace Source\Controller;
-use Slim\Container;
 
-class GreetingController
+
+class GreetingController extends AbstractController
 {
-    private $ci;
-    //Constructor
-    public function __construct(Container $ci) {
-        $this->ci = $ci;
-    }
-
     public function greet($request, $response, $args) {
         $response->getBody()->write("Hello, World!");
     }
 
+    /*
+     * Um die funktion wieder verwenden zu können muss slim/php-view wieder required werden
     public function greetWithName($request, $response, $args){
         // Sample log message
         $this->ci->get('logger')->info("Slim-Skeleton '/greeting/[{name}]' route");
@@ -36,4 +32,5 @@ class GreetingController
             'url' => $routeURL
         ]);
     }
+    */
 }

@@ -12,8 +12,12 @@
  */
 $app->get("/greeting", '\Source\Controller\GreetingController:greet')->setName("greet");
 
+
+$app->get("/home", '\Source\Controller\HomeController:index')->setName("home");
+
 /*
  * The extended Hello-World example, featuring Views.
  */
+// Um die route wieder verwenden zu können muss slim/php-view wieder required werden
 $app->get('/[{name}]', '\Source\Controller\GreetingController:greetWithName');
 
