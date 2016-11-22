@@ -1,15 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jones
- * Date: 22.11.2016
- * Time: 09:21
- */
-
 namespace Source\Controller;
 
 
 class RegistrationController extends AbstractController
 {
 
+    public function index($request, $response, $args){
+        //$response->getBody()->write("Registration-View in progress...");
+        return $this->ci->get('view')->render($response, 'signin.twig');
+    }
 }

@@ -5,6 +5,8 @@
  * Don't forget about the namespaces!
  */
 
+// ************** Example **************
+
 /*
  * The Hello World example.
  * The /greeting example with execute the "greet"- Method of the GreetingController class,
@@ -12,12 +14,21 @@
  */
 $app->get("/greeting", '\Source\Controller\GreetingController:greet')->setName("greet");
 
-
+// ************** Homepage - Routes **************
+/*
+ * The Welcome - Homepage
+ */
 $app->get("/home", '\Source\Controller\HomeController:index')->setName("home");
 
+
+// ************** Registration - Routes **************
 /*
- * The extended Hello-World example, featuring Views.
+ * The Index - Page
  */
-// Um die route wieder verwenden zu können muss slim/php-view wieder required werden
-$app->get('/[{name}]', '\Source\Controller\GreetingController:greetWithName');
+$app->get("/register",'\Source\Controller\RegistrationController:index')->setName("register");
+
+/*
+ * Register User
+ */
+$app->post("/register", '\Source\Controller\RegistrationController:register')->setName("register.post");
 
