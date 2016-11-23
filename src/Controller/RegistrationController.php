@@ -1,36 +1,37 @@
 <?php
 namespace Source\Controller;
 use Source\Models\User;
+use Respect\Validation\Validator as Validator;
 
 class RegistrationController extends AbstractController
 {
 
     public function index($request, $response, $args){
         //$response->getBody()->write("Registration-View in progress...");
-        $messages = $this->ci->get('flash')->getMessages();
-        $this->ci->get('view')->getEnvironment()->addGlobal('messages', $messages);
+        //$messages = $this->ci->get('flash')->getMessages();
+        //$this->ci->get('view')->getEnvironment()->addGlobal('messages', $messages);
         return $this->ci->get('view')->render($response, 'register.twig');
     }
 
 
     public function register($request, $response, $args){
-        $parsedBody = $request->getParsedBody();
+        $validation = $this->ci->get('validator')->validate($request,[
+            'email' => Validator::noWhitespace()->notEmpty(),
+            'username' => Validator::noWhitespace()->notEmpty()->alpha(),
+            'password' => Validator::noWhitespace()->notEmpty(),
+        ]);
 
-        $name = $parsedBody['name'];
-        $email = $parsedBody['email'];
-        $password_one = $parsedBody['password_one'];
-        $password_two = $parsedBody['password_two'];
-        // Email Validation: && !filter_var($email, FILTER_VALIDATE_EMAIL)
-        if(!empty($password_one) && !empty($name) && !empty($email) && $password_one == $password_two){
-            $hashed_password = password_hash($password_one, PASSWORD_DEFAULT);
-            $user = new User($name,$email,$hashed_password);
-            $uri = $request->getUri()->withPath($this->ci->get('router')->pathFor('register.success'));
-            return $response = $response->withRedirect($uri, 403);
+        if(!$validation->failed()){
+            $user = User::create([
+                'username' => $request->getParam('username'),
+                'email' => $request->getParam('email'),
+                'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
+            ]);
+            return $response->withRedirect($this->ci->get('router')->pathFor('register.success'));
         } else{
-            $this->ci->get('flash')->addMessage('RegisterForm', 'Please fill in the whole form and check your passwords.');
+            //$this->ci->get('flash')->addMessage('RegisterForm', 'Please fill in the whole form and check your passwords.');
 
-            $uri = $request->getUri()->withPath($this->ci->get('router')->pathFor('register'));
-            return $response = $response->withRedirect($uri, 403);
+            return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         }
     }
 

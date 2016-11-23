@@ -37,3 +37,22 @@ $container['view'] = function($c){
 $container['flash'] = function () {
     return new \Slim\Flash\Messages();
 };
+
+// Repect Validator
+$container['validator'] = function(){
+    return new Source\Validation\Validator;
+};
+
+// Illuminate Database
+$capsule = new \Illuminate\Database\Capsule\Manager();
+$capsule->addConnection($container['settings']['db']);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
+$container['db'] = function($container) use ($capsule) {
+    return $capsule;
+};
+
+// Add Middleware
+$app->add(new Source\Middleware\ValidationErrorsMiddleware($container));
+$app->add(new Source\Middleware\OldInputMiddleware($container));
