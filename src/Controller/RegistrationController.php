@@ -16,7 +16,7 @@ class RegistrationController extends AbstractController
 
     public function register($request, $response, $args){
         $validation = $this->ci->get('validator')->validate($request,[
-            'email' => Validator::noWhitespace()->notEmpty(),
+            'email' => Validator::noWhitespace()->notEmpty()->emailAvailable(),
             'username' => Validator::noWhitespace()->notEmpty()->alpha(),
             'password' => Validator::noWhitespace()->notEmpty(),
         ]);

@@ -56,3 +56,6 @@ $container['db'] = function($container) use ($capsule) {
 // Add Middleware
 $app->add(new Source\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new Source\Middleware\OldInputMiddleware($container));
+
+use Respect\Validation\Validator as Validator;
+Validator::with("Source\\Validation\\Rules\\");
