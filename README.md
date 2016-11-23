@@ -7,10 +7,13 @@ Repolink https://github.com/JonesPButter/broforce-slim.git
 
 1. Clone Repo
 2. Install Composer
-3. run command: php composer update
+3. run command: php composer install
 4. Start a Webserver. For example the php built-in webserver:
     php -S localhost:8080 -t public public/index.php
-
+5. Create Mysql Database (TODO add Mysql-script)
+	- change db specific setting in src/settings.php
+	
+	
 install composer into current dir:
 php -r "copy('https://getcomposer.org/installer', 
 'composer-setup.php');" 
