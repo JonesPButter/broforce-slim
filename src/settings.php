@@ -4,7 +4,7 @@ return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
-
+        'userDbLocation' => __DIR__ . "/../database/user-db.json",
         // Renderer settings
         'renderer' => [
             'template_path' => __DIR__ . '/../src/Views/',

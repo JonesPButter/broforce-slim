@@ -1,6 +1,6 @@
 <?php
 namespace Source\Controller;
-use Source\Models\User;
+use Source\Models\DAOs\UserDAO;
 use Respect\Validation\Validator as Validator;
 
 class RegistrationController extends AbstractController
@@ -29,11 +29,10 @@ class RegistrationController extends AbstractController
         if($validation->failed()){
             return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         } else{
-            $user = User::create([
-                'username' => $request->getParam('username'),
-                'email' => $request->getParam('email'),
-                'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
-            ]);
+            $this->ci->get('userDAO')->create($request->getParam('username'),$request->getParam('email'),
+                                            password_hash($request->getParam('password'), PASSWORD_DEFAULT));
+            $users = $this->ci->get('userDAO')->getAllUsers();
+            var_dump($users); die();
             return $response->withRedirect($this->ci->get('router')->pathFor('register.success'));
         }
     }

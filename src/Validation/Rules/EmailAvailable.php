@@ -8,13 +8,13 @@
 
 namespace Source\Validation\Rules;
 use Respect\Validation\Rules\AbstractRule;
-use Source\Models\User;
+use Source\Models\DAOs\UserDAO;
 
 class EmailAvailable extends AbstractRule
 {
     public function validate($input)
     {
-        return User::where('email', $input)->count() ===0;
+        return UserDAO::getUserWithEmail($input) === 0;
     }
 
 }
