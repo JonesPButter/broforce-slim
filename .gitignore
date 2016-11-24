@@ -98,7 +98,7 @@ composer.phar
 # composer.lock
 
 logs/
-database/*.json
+*.json
 
 ### MicrosoftOffice ###
 
