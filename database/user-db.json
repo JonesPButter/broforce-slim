@@ -1,3 +1,12 @@
 [
-
+  {
+    "id": null,
+    "username": "jo",
+    "email": "jo",
+    "name": null,
+    "familyname": null,
+    "password": "$2y$10$bOyq6jtYph0Gr2GGGDL1ouGM6jhN83.CXumKiz3ZZwfx0XDVqQ6Oa",
+    "createdAt": null,
+    "updatedAt": null
+  }
 ]

@@ -63,7 +63,7 @@ $container['serializer'] = function(){
 
 $container['userDAO'] = function ($c) {
     $settings = $c->get('settings');
-    $userDAO = new UserDAO($c->get('serializer'),$settings['userDbLocation']);
+    $userDAO = new UserDAO($c,$settings['userDbLocation']);
     return $userDAO;
 };
 

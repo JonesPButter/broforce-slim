@@ -14,14 +14,15 @@ class UserDAO extends AbstractDAO
 
     public function create($username, $email, $password){
         $string = file_get_contents($this->db_location);
-        $users = $this->serializer->deserialize($string,'Source\\Models\\User[]', 'json');
-
+        $users = $this->container->get('serializer')->deserialize($string,'Source\\Models\\User[]', 'json');
+        $this->container->get('logger')->info("Old-User-Table:" . json_encode($users));
         $user = new User($username, $email, $password);
 
         // add new User to the end of the array
         $users[] = $user;
 
-        $jsonContent = $this->serializer->serialize($users, 'json');
+        $jsonContent = $this->container->get('serializer')->serialize($users, 'json');
+        $this->container->get('logger')->info("New-User-Table:" . $jsonContent);
         file_put_contents($this->db_location,$jsonContent);
         return $user;
     }
@@ -29,8 +30,7 @@ class UserDAO extends AbstractDAO
     public function getAllUsers()
     {
         $string = file_get_contents($this->db_location);
-        $users = $this->serializer->deserialize($string,'Source\\Models\\User[]', 'json');
-
+        $users = $this->container->get('serializer')->deserialize($string,'Source\\Models\\User[]', 'json');
         /*
         $person = new User("Bro", "Bromail", "not_encrypted");
         $jsonContent = $this->serializer->serialize($person, 'json');

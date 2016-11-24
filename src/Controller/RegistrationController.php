@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
             $this->ci->get('userDAO')->create($request->getParam('username'),$request->getParam('email'),
                                             password_hash($request->getParam('password'), PASSWORD_DEFAULT));
             $users = $this->ci->get('userDAO')->getAllUsers();
-            var_dump($users); die();
+            //var_dump($users); die();
             return $response->withRedirect($this->ci->get('router')->pathFor('register.success'));
         }
     }
