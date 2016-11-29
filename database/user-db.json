@@ -6,7 +6,7 @@
     "name": "broman",
     "familyname": "brohood",
     "password": "$2y$10$bOyq6jtYph0Gr2GGGDL1ouGM6jhN83.CXumKiz3ZZwfx0XDVqQ6Oa",
-    "createdAt": "2016\/11\/29 15:59:39",
+    "createdAt": "2016\/11\/29 16:59:22",
     "updatedAt": null,
     "role": "user"
   },
@@ -17,18 +17,7 @@
     "name": null,
     "familyname": null,
     "password": "$2y$10$qf9N9e3BMM9E3BlnWM4c8eS6u3\/ELv8LE9g3teK0QqFLV81GUYvv.",
-    "createdAt": "2016\/11\/29 15:59:39",
-    "updatedAt": null,
-    "role": "user"
-  },
-  {
-    "id": "a6b340021678d4ac8e13debe994dcaa6",
-    "username": "bo",
-    "email": "bo@bo.de",
-    "name": null,
-    "familyname": null,
-    "password": "$2y$10$EFtUY4EJAUHArhzA\/BTto.OxkQOZdHtg4.EfTOKyle5Try6CszTw2",
-    "createdAt": "2016\/11\/29 15:59:39",
+    "createdAt": "2016\/11\/29 16:59:22",
     "updatedAt": null,
     "role": "user"
   }

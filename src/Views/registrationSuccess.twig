@@ -2,8 +2,16 @@
 
 {% block content %}
     <div class="jumbotron">
-        <h1>Thanks, for signing in!</h1>
-        <p>Take a look at our Homepage.</p>
-        <p><a class="btn btn-primary btn-lg" href="{{ path_for("home") }}" role="button">Home</a></p>
+        {% if auth.check%}
+            <h1>Thanks, for signing in!</h1>
+            <p>Take a look at our Homepage.</p>
+            <a class="btn btn-primary btn-lg" href="{{ path_for("home") }}" role="button">Home</a>
+        {% else %}
+            <h2>We are sorry, but you haven't signed in yet!</h2>
+            <p>Please register here.</p>
+            <a class="btn btn-primary btn-lg" href="{{ path_for("register") }}" role="button">Register</a>
+        {% endif %}
+
+
     </div>
 {% endblock %}
