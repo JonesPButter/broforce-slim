@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use \Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use\Source\Models\DAOs\UserDAO;
+use \Source\Models\Auth\Auth;
 use Source\Middleware\ValidationErrorsMiddleware;
 use Source\Middleware\OldInputMiddleware;
 use Respect\Validation\Validator as RespectValidator;
@@ -65,6 +66,11 @@ $container['userDAO'] = function ($c) {
     $settings = $c->get('settings');
     $userDAO = new UserDAO($c,$settings['userDbLocation']);
     return $userDAO;
+};
+
+$container['auth'] = function($c){
+    $auth = new Auth($c->get('userDAO'));
+    return $auth;
 };
 
 // Add Middleware

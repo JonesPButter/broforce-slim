@@ -21,8 +21,8 @@ class RegistrationController extends AbstractController
      */
     public function register($request, $response){
         $validation = $this->ci->get('validator')->validate($request,[
-            'email' => Validator::noWhitespace()->notEmpty()->emailAvailable(),
-            'username' => Validator::noWhitespace()->notEmpty()->alpha(),
+            'email' => Validator::noWhitespace()->notEmpty()->emailAvailable($this->ci->get('userDAO')),
+            'username' => Validator::noWhitespace()->notEmpty()->alpha()->usernameAvailable($this->ci->get('userDAO')),
             'password' => Validator::noWhitespace()->notEmpty(),
         ]);
 
@@ -31,8 +31,6 @@ class RegistrationController extends AbstractController
         } else{
             $this->ci->get('userDAO')->create($request->getParam('username'),$request->getParam('email'),
                                             password_hash($request->getParam('password'), PASSWORD_DEFAULT));
-            $users = $this->ci->get('userDAO')->getAllUsers();
-            //var_dump($users); die();
             return $response->withRedirect($this->ci->get('router')->pathFor('register.success'));
         }
     }

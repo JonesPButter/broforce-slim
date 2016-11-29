@@ -10,6 +10,7 @@
  */
 
 session_cache_limiter(false);
+date_default_timezone_set('Europe/Berlin');
 session_start();
 
 // *********** Require Autoloading for making all classes available ***********

@@ -12,9 +12,14 @@ use Source\Models\DAOs\UserDAO;
 
 class EmailAvailable extends AbstractRule
 {
-    public function validate($input)
-    {
-        return UserDAO::getUserWithEmail($input) === 0;
+    private $dao;
+
+    public function __construct(UserDAO $dao){
+        $this->dao = $dao;
+    }
+
+    public function validate($input){
+        return $this->dao->getUserWithEmail($input) === 0;
     }
 
 }

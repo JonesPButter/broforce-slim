@@ -1,12 +1,24 @@
 [
   {
-    "id": 1,
+    "id": null,
     "username": "testbro",
     "email": "testbro@broforce.de",
     "name": "broman",
     "familyname": "brohood",
     "password": "$2y$10$bOyq6jtYph0Gr2GGGDL1ouGM6jhN83.CXumKiz3ZZwfx0XDVqQ6Oa",
-    "createdAt": null,
-    "updatedAt": null
+    "createdAt": "2016\/11\/29 15:19:26",
+    "updatedAt": null,
+    "role": "user"
+  },
+  {
+    "id": null,
+    "username": "testbroo",
+    "email": "testbro@broforce.dee",
+    "name": null,
+    "familyname": null,
+    "password": "$2y$10$bhwYr9B7vaVGtPFMc7idaejjM6KC.nmuo1J3\/gHEMC8aJHqBDhoBK",
+    "createdAt": "2016\/11\/29 15:19:26",
+    "updatedAt": null,
+    "role": "user"
   }
 ]

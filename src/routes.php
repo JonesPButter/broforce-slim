@@ -21,6 +21,9 @@ $app->get("/greeting", '\Source\Controller\GreetingController:greet')->setName("
  */
 $app->get("/home", '\Source\Controller\HomeController:index')->setName("home");
 
+$app->get("/", function($request, $response) use ($container){
+   return  $response->withRedirect($container->router->pathFor('home'));
+});
 
 // ************** Registration - Routes **************
 
@@ -36,3 +39,7 @@ $app->get("/register",'\Source\Controller\RegistrationController:index')->setNam
  */
 $app->post("/register", '\Source\Controller\RegistrationController:register')->setName("register.post");
 
+
+// ************** Login - Routes **************
+$app->get("/login",'\Source\Controller\AuthController:index')->setName("logUserIn");
+$app->post("/login",'\Source\Controller\AuthController:login')->setName("logUserIn.post");

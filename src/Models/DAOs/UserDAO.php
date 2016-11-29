@@ -54,7 +54,14 @@ class UserDAO extends AbstractDAO
     }
 
     public function getUserWithEmail($email){
-        return 0;
+        $result = 0;
+        foreach ($this->getAllUsers() as $user){
+            if($user->getEmail() == $email){
+                $result = $user;
+            }
+            break;
+        }
+        return $result;
     }
 
     public function getUserByID($id){
@@ -62,7 +69,14 @@ class UserDAO extends AbstractDAO
     }
 
     public function getUserByUsername($username){
-
+        $result = 0;
+        foreach ($this->getAllUsers() as $user){
+            if($user->getUsername() == $username){
+                $result = $user;
+                break;
+            }
+        }
+        return $result;
     }
 
     public function updateUser(User $user){

@@ -22,6 +22,7 @@ class User
     private $password;
     private $created_at;
     private $updated_at;
+    private $role;
 
     /**
      * User constructor.
@@ -34,10 +35,17 @@ class User
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
+        $this->role = "user";
+        $this->created_at = date('Y/m/d H:i:s');
     }
 
     public function to_json(){
         return json_encode(get_object_vars($this));
+    }
+
+    public function update()
+    {
+        $this->updated_at = date('Y/m/d H:i:s');
     }
 
     /**
@@ -145,12 +153,21 @@ class User
         return $this->updated_at;
     }
 
+
     /**
-     * @param mixed $updated_at
+     * @return mixed
      */
-    public function setUpdatedAt($updated_at)
+    public function getRole()
     {
-        $this->updated_at = $updated_at;
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
 
