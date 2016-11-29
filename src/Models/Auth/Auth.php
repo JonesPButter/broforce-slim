@@ -31,5 +31,22 @@ class Auth
             $_SESSION['user'] = $user->getId();
             return true;
         }
+        return false;
+    }
+
+    public function isUserLoggedIn(){
+        return isset($_SESSION['user']);
+    }
+
+    public function getUser(){
+        if(isset($_SESSION['user'])){
+            return $this->userDAO->getUserByID($_SESSION['user']);
+        }
+    }
+
+    public function logout(){
+        if(isset($_SESSION['user'])){
+            unset($_SESSION['user']);
+        }
     }
 }

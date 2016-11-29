@@ -44,10 +44,15 @@ class AuthController extends AbstractController
             $request->getParam('email'),
             $request->getParam('password')
         );
-
         if (!$veryfied) {
             return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
         }
         return $response->withRedirect($this->ci->get('router')->pathFor('home'));
     }
+
+    public function logout($request, $response){
+        $this->ci->get('auth')->logout();
+        return $response->withRedirect($this->ci->get('router')->pathFor('home'));
+    }
+
 }

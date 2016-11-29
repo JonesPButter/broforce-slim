@@ -26,12 +26,14 @@ class User
 
     /**
      * User constructor.
+     * @param $id
      * @param $username
      * @param $email
      * @param $password
      */
-    public function __construct($username, $email, $password)
+    public function __construct($id, $username, $email, $password)
     {
+        $this->id = $id;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;

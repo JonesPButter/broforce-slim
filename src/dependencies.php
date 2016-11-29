@@ -31,6 +31,19 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
+// userDAO
+$container['userDAO'] = function ($c) {
+    $settings = $c->get('settings');
+    $userDAO = new UserDAO($c,$settings['userDbLocation']);
+    return $userDAO;
+};
+
+// Auth-class
+$container['auth'] = function($c){
+    $auth = new Auth($c->get('userDAO'));
+    return $auth;
+};
+
 // add Twig-Views to the application
 $container['view'] = function($c){
     $settings = $c->get('settings')['renderer'];
@@ -43,6 +56,11 @@ $container['view'] = function($c){
         $c->router,
         $c->request->getUri()
     ));
+
+    $view->getEnvironment()->addGlobal('auth', [
+        'check' => $c->auth->isUserLoggedIn(),
+        'user' => $c->auth->getUser(),
+    ]);
     return $view;
 };
 
@@ -62,16 +80,6 @@ $container['serializer'] = function(){
     return new Serializer($normalizers, $encoders);
 };
 
-$container['userDAO'] = function ($c) {
-    $settings = $c->get('settings');
-    $userDAO = new UserDAO($c,$settings['userDbLocation']);
-    return $userDAO;
-};
-
-$container['auth'] = function($c){
-    $auth = new Auth($c->get('userDAO'));
-    return $auth;
-};
 
 // Add Middleware
 $app->add(new ValidationErrorsMiddleware($container));

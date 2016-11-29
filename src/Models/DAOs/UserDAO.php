@@ -16,8 +16,8 @@ class UserDAO extends AbstractDAO
         $string = file_get_contents($this->db_location);
         $users = $this->container->get('serializer')->deserialize($string,'Source\\Models\\User[]', 'json');
         $this->container->get('logger')->info("Old-User-Table:" . json_encode($users));
-        $user = new User($username, $email, $password);
-
+        $id = md5(uniqid(rand(), true));
+        $user = new User($id,$username, $email, $password);
         // add new User to the end of the array
         $users[] = $user;
 
@@ -58,14 +58,22 @@ class UserDAO extends AbstractDAO
         foreach ($this->getAllUsers() as $user){
             if($user->getEmail() == $email){
                 $result = $user;
+                break;
             }
-            break;
+
         }
         return $result;
     }
 
     public function getUserByID($id){
-
+        $result = 0;
+        foreach ($this->getAllUsers() as $user){
+            if($user->getId() == $id){
+                $result = $user;
+                break;
+            }
+        }
+        return $result;
     }
 
     public function getUserByUsername($username){

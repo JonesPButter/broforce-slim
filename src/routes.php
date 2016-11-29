@@ -40,6 +40,7 @@ $app->get("/register",'\Source\Controller\RegistrationController:index')->setNam
 $app->post("/register", '\Source\Controller\RegistrationController:register')->setName("register.post");
 
 
-// ************** Login - Routes **************
+// ************** Login/Logout - Routes **************
 $app->get("/login",'\Source\Controller\AuthController:index')->setName("logUserIn");
 $app->post("/login",'\Source\Controller\AuthController:login')->setName("logUserIn.post");
+$app->get("/logout",'\Source\Controller\AuthController:logout')->setName("logUserOut");
