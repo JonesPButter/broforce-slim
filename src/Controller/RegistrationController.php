@@ -10,7 +10,7 @@ class RegistrationController extends AbstractController
      * This is the index of the registration process,
      * which shows the registration form.
      */
-    public function index($request, $response){
+    public function getRegistration($request, $response){
         return $this->ci->get('view')->render($response, 'register.twig');
     }
 
@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
      * This function receives the data, typed in and submitted by the user
      * at the register.twig-view.
      */
-    public function register($request, $response){
+    public function postRegistration($request, $response){
         $validation = $this->ci->get('validator')->validate($request,[
             'email' => Validator::noWhitespace()->notEmpty()->emailAvailable($this->ci->get('userDAO')) ,
             'username' => Validator::noWhitespace()->notEmpty()->alpha()->usernameAvailable($this->ci->get('userDAO')),

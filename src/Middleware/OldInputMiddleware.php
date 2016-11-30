@@ -8,7 +8,17 @@
 
 namespace Source\Middleware;
 
-
+/**
+ * Class OldInputMiddleware
+ * @package Source\Middleware
+ *
+ * Description:
+ *
+ * The purpose of this middleware is to store the request-content in the Session-Variable,
+ * to maintain old values in the views.
+ *
+ * Old values will be added to the views environment.
+ */
 class OldInputMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next){

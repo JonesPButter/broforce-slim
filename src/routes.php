@@ -5,7 +5,9 @@
  * Don't forget about the namespaces!
  */
 
-// ************** Example **************
+// **************************** ROUTES ****************************
+
+// ************** Example - Route **************
 
 /*
  * The Hello World example.
@@ -16,31 +18,33 @@ $app->get("/greeting", '\Source\Controller\GreetingController:greet')->setName("
 
 // ************** Homepage - Routes **************
 
-/*
- * The Welcome - Homepage
- */
+// Get the Homepage
 $app->get("/home", '\Source\Controller\HomeController:index')->setName("home");
 
+// Redirect to Homepage
 $app->get("/", function($request, $response) use ($container){
    return  $response->withRedirect($container->router->pathFor('home'));
 });
 
 // ************** Registration - Routes **************
-
-$app->get("/register/success", '\Source\Controller\RegistrationController:success')->setName("register.success");
-
-/*
- * The Index - Page
- */
-$app->get("/register",'\Source\Controller\RegistrationController:index')->setName("register");
-
-/*
- * Register User
- */
-$app->post("/register", '\Source\Controller\RegistrationController:register')->setName("register.post");
+// Get the registration success page
+$app->get("/registration/success", '\Source\Controller\RegistrationController:success')->setName("register.success");
+//Get the registration page
+$app->get("/registration", '\Source\Controller\RegistrationController:getRegistration')->setName("register");
+// post the user input
+$app->post("/registration", '\Source\Controller\RegistrationController:postRegistration')->setName("register.post");
 
 
 // ************** Login/Logout - Routes **************
-$app->get("/login",'\Source\Controller\AuthController:index')->setName("logUserIn");
-$app->post("/login",'\Source\Controller\AuthController:login')->setName("logUserIn.post");
-$app->get("/logout",'\Source\Controller\AuthController:logout')->setName("logUserOut");
+// Get the Login page
+$app->get("/authentication/login",'\Source\Controller\AuthController:index')->setName("logUserIn");
+// Post the userinput
+$app->post("/authentication/login",'\Source\Controller\AuthController:login')->setName("logUserIn.post");
+// Log the the user out
+$app->get("/authentication/logout",'\Source\Controller\AuthController:logout')->setName("logUserOut");
+
+
+// ************** Change Password - Routes **************
+// Get the change password page
+$app->get("/userservice/change/password", '\Source\Controller\ChangePasswordController:getForm')->setName("changePW");
+$app->post("/userservice/change/password", '\Source\Controller\ChangePasswordController:changePassword')->setName("changePW.post");

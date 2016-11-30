@@ -2,14 +2,15 @@
 
 {% block content %}
     <div class="jumbotron">
-        {% if auth.check%}
+        {% if auth.check %}
             <h1>Thanks, for signing in!</h1>
-            <p>Take a look at our Homepage.</p>
+            <p>Please take a look around.</p>
             <a class="btn btn-primary btn-lg" href="{{ path_for("home") }}" role="button">Home</a>
         {% else %}
             <h2>We are sorry, but you haven't signed in yet!</h2>
-            <p>Please register here.</p>
+            <p>Please create an account or login.</p>
             <a class="btn btn-primary btn-lg" href="{{ path_for("register") }}" role="button">Register</a>
+            <a class="btn btn-primary btn-lg" href="{{ path_for("logUserIn") }}" role="button">Login</a>
         {% endif %}
 
 

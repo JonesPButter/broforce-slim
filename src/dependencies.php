@@ -61,6 +61,8 @@ $container['view'] = function($c){
         'check' => $c->auth->isUserLoggedIn(),
         'user' => $c->auth->getUser(),
     ]);
+
+    $view->getEnvironment()->addGlobal('flash',$c->get('flash'));
     return $view;
 };
 
@@ -76,7 +78,7 @@ $container['validator'] = function(){
 
 $container['serializer'] = function(){
     $encoders = array(new JsonEncoder());
-    $normalizers = array(new GetSetMethodNormalizer(), new ObjectNormalizer(), new ArrayDenormalizer());
+    $normalizers = array(new GetSetMethodNormalizer(), new ArrayDenormalizer());
     return new Serializer($normalizers, $encoders);
 };
 

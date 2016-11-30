@@ -25,11 +25,10 @@
                         <button type="submit" class="btn btn-default">Login!</button>
                     </form>
                 </div>
-                {% if messages %}
+                {% if flash.getMessage('error-login') %}
                     <div class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        {{ messages['RegisterForm'] | json_encode }}
+                        {{ flash.getMessage('error-login') | first }}
+                        <p>Your input is correct? Maybe you just forgot to validate your email.</p>
                     </div>
                 {% endif %}
             </div>

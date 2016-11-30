@@ -40,11 +40,12 @@ class AuthController extends AbstractController
         }
 
         // check if the user is in the database
-        $veryfied = $this->ci->get('auth')->verify(
+        $verified = $this->ci->get('auth')->verify(
             $request->getParam('email'),
             $request->getParam('password')
         );
-        if (!$veryfied) {
+        if (!$verified) {
+            $this->ci->get('flash')->addMessage('error-login', 'We couldn\'t log you in. Please check your input.');
             return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
         }
         return $response->withRedirect($this->ci->get('router')->pathFor('home'));

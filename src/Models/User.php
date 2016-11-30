@@ -23,6 +23,7 @@ class User
     private $created_at;
     private $updated_at;
     private $role;
+    private $verified;
 
     /**
      * User constructor.
@@ -30,24 +31,25 @@ class User
      * @param $username
      * @param $email
      * @param $password
+     * @param $role
      */
-    public function __construct($id, $username, $email, $password)
+    public function __construct($id, $username, $email, $password, $role)
     {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
+        $this->name = "";
+        $this->familyname = "";
         $this->password = $password;
-        $this->role = "user";
         $this->created_at = date('Y/m/d H:i:s');
+        $this->updated_at = date('Y/m/d H:i:s');
+        $this->role = $role;
+        $this->verified = false;
     }
+
 
     public function to_json(){
         return json_encode(get_object_vars($this));
-    }
-
-    public function update()
-    {
-        $this->updated_at = date('Y/m/d H:i:s');
     }
 
     /**
@@ -56,6 +58,14 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -146,6 +156,13 @@ class User
         return $this->created_at;
     }
 
+    /**
+     * @param mixed $created_at
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+    }
 
     /**
      * @return mixed
@@ -155,6 +172,13 @@ class User
         return $this->updated_at;
     }
 
+    /**
+     * @param mixed $updated_at
+     */
+    public function setUpdatedAt($updated_at)
+    {
+        $this->updated_at = $updated_at;
+    }
 
     /**
      * @return mixed
@@ -172,8 +196,21 @@ class User
         $this->role = $role;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getVerified()
+    {
+        return $this->verified;
+    }
 
-
+    /**
+     * @param mixed $verified
+     */
+    public function setVerified($verified)
+    {
+        $this->verified = $verified;
+    }
 
 
 }
