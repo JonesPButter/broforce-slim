@@ -7,7 +7,7 @@
  */
 
 namespace Source\Controller;
-
+use Respect\Validation\Validator as Validator;
 
 class ChangePasswordController extends AbstractController
 {
@@ -17,16 +17,21 @@ class ChangePasswordController extends AbstractController
     }
 
     public function changePassword($request, $response){
-        $password_old = $request->getParam('password_old');
-        $password_new = $request->getParam('password_new');
+        // Validate form-input
+        $validation = $this->ci->get('validator')->validate($request,[
+            'password_old' => Validator::noWhitespace()->notEmpty(),
+            'password_new' => Validator::noWhitespace()->notEmpty(),
+        ]);
 
-        $user = $this->ci->get('userDAO')->getUserByID($_SESSION['user']);
-        if(password_verify($password_old,$user->getPassword())){
-            $user->setPassword(password_hash($password_new, PASSWORD_DEFAULT));
-            $this->ci->get('userDAO')->updateUser($user);
-            $this->ci->get('flash')->addMessage('info', "Your password has been successfully changed.");
-        }else{
-            $this->ci->get('flash')->addMessage('error', "Your old password wasn't correct.");
+        if(!$validation->failed()){
+            $user = $this->ci->get('userDAO')->getUserByID($_SESSION['user']);
+            if(password_verify($request->getParam('password_old'),$user->getPassword())){
+                $user->setPassword(password_hash($request->getParam('password_new'), PASSWORD_DEFAULT));
+                $this->ci->get('userDAO')->updateUser($user);
+                $this->ci->get('flash')->addMessage('info', "Your password has been successfully changed.");
+            }else{
+                $this->ci->get('flash')->addMessage('error', "Your old password wasn't correct.");
+            }
         }
         return $response->withRedirect($this->ci->get('router')->pathfor('changePW'));
     }

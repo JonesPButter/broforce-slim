@@ -1,6 +1,5 @@
 <?php
 namespace Source\Controller;
-use Source\Models\DAOs\UserDAO;
 use Respect\Validation\Validator as Validator;
 
 class RegistrationController extends AbstractController
