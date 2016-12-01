@@ -187,3 +187,20 @@
 [2016-12-01 13:23:25] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"e74c87d"}
 [2016-12-01 13:23:25] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"b48388f"}
 [2016-12-01 13:24:40] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"e7f7837"}
+[2016-12-01 14:03:29] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"785fd7b"}
+[2016-12-01 14:03:29] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"9181e2e"}
+[2016-12-01 14:04:24] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"5a5a284"}
+[2016-12-01 14:04:31] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"370e2b5"}
+[2016-12-01 14:04:36] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"8798073"}
+[2016-12-01 14:04:36] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"080bed9"}
+[2016-12-01 14:05:24] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"850e0c4"}
+[2016-12-01 14:07:49] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"53f8099"}
+[2016-12-01 14:07:49] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"d690fcb"}
+[2016-12-01 14:08:19] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"960cf72"}
+[2016-12-01 14:09:56] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"595f96d"}
+[2016-12-01 14:09:56] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"595f96d"}
+[2016-12-01 14:09:56] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"595f96d"}
+[2016-12-01 14:09:56] slim-app.INFO: Added new User: {"id":"00a1fd2f9e3f33077ecfd67a4c79cb85","username":"Ralle","email":"ralle@me.com","name":"","familyname":"","password":"$2y$10$jbWjXDec2VcWRvQiXYFq1.m\/RC3GqJYBG5NhEXOmnQSm1PQM4xpGq","created_at":"2016\/12\/01 14:09:56","updated_at":"2016\/12\/01 14:09:56","role":"user","verified":false} [] {"uid":"595f96d"}
+[2016-12-01 14:09:56] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"595f96d"}
+[2016-12-01 14:09:56] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"99315bb"}
+[2016-12-01 14:10:07] slim-app.INFO: Collecting usertable from database user-db.json [] {"uid":"e864d2e"}
