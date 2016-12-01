@@ -63,6 +63,7 @@ $container['view'] = function($c){
     ]);
 
     $view->getEnvironment()->addGlobal('flash',$c->get('flash'));
+    $view->getEnvironment()->addGlobal('userTable', $c->get('userDAO')->getTable());
     return $view;
 };
 

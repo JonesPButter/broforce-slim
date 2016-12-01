@@ -9,10 +9,11 @@
 namespace Source\Controller;
 
 
+use Slim\Container;
+
 class UsertableController extends AbstractController
 {
     public function getTable($request,$response){
-        return "in progress";
-
+        return $this->ci->get('view')->render($response, 'usertable.twig');
     }
 }

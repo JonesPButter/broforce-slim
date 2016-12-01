@@ -1,0 +1,42 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <h1>List of all users</h1>
+    <div class="usertable">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Familyname</th>
+                    <th>Password</th>
+                    <th>Created at</th>
+                    <th>Updated at</th>
+                    <th>Role</th>
+                    <th>Verified</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if userTable %}
+                    {% for user in userTable %}
+                        <tr>
+                            <td>{{ user.getId }}</td>
+                            <td>{{ user.getUsername }}</td>
+                            <td>{{ user.getEmail }}</td>
+                            <td>{{ user.getName }}</td>
+                            <td>{{ user.getFamilyname }}</td>
+                            <td>never mind!</td>
+                            <td>{{ user.getCreatedAt }}</td>
+                            <td>{{ user.getUpdatedAt }}</td>
+                            <td>{{ user.getRole }}</td>
+                            <td>{{ user.getVerified }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
