@@ -36,7 +36,6 @@ class AuthController extends AbstractController
         // if input is not complete -> redirect and show error messages
         if ($validation->failed()) {
             return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
-
         }
 
         // check if the user is in the database
