@@ -1,0 +1,26 @@
+[
+  {
+    "id": "00a1fd2f9e3f33077ecfd67a4c79cb85",
+    "username": "Ralle",
+    "email": "ralle@me.com",
+    "name": "",
+    "familyname": "",
+    "password": "$2y$10$jbWjXDec2VcWRvQiXYFq1.m\/RC3GqJYBG5NhEXOmnQSm1PQM4xpGq",
+    "createdAt": "2016\/12\/01 14:09:56",
+    "updatedAt": "2016\/12\/01 14:09:56",
+    "role": "admin",
+    "verified": false
+  },
+  {
+    "id": "a8b453bbe6447f41dccb1c8273504adf",
+    "username": "jones",
+    "email": "jones@p.butter",
+    "name": "",
+    "familyname": "",
+    "password": "$2y$10$dFdQjSYr5kPsz\/QG.TwkZ.qvg3gd12kRDyNSNzHxYnde4o1NhP8Ne",
+    "createdAt": "2016\/12\/01 15:03:53",
+    "updatedAt": "2016\/12\/01 15:03:53",
+    "role": "admin",
+    "verified": false
+  }
+]
