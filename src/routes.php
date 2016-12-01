@@ -44,7 +44,9 @@ $app->post("/authentication/login",'\Source\Controller\AuthController:login')->s
 $app->get("/authentication/logout",'\Source\Controller\AuthController:logout')->setName("logUserOut");
 
 
-// ************** Change Password - Routes **************
+// ************** Change User Data - Routes **************
 // Get the change password page
 $app->get("/userservice/change/password", '\Source\Controller\ChangePasswordController:getForm')->setName("changePW");
 $app->post("/userservice/change/password", '\Source\Controller\ChangePasswordController:changePassword')->setName("changePW.post");
+$app->get("/userservice/change/userdata", '\Source\Controller\ChangeUserDataController:getForm')->setName("changeData");
+$app->post("/userservice/change/userdata", '\Source\Controller\ChangeUserDataController:changeData')->setName("changeData.post");
