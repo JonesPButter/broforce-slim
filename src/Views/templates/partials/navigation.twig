@@ -21,13 +21,15 @@
                        aria-haspopup="true" aria-expanded="false">{{ auth.user.getUsername }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ path_for('changePW') }}">Change password</a></li>
-                        <!--<li><a href="{{ path_for('changeData') }}">Change user data</a></li> -->
+                        <li><a href="{{ path_for('changeData') }}">Change user data</a></li>
                         <li><a href="{{ path_for('logUserOut') }}">Logout</a></li>
                     </ul>
                 </li>
+                {% if  auth.user.getRole == 'admin'%}
+                    <li><a href="{{ path_for('register') }}">Register</a></li>
+                {% endif %}
                 {% else %}
                 <li><a href="{{ path_for('logUserIn') }}">Login</a></li>
-                <li><a href="{{ path_for('register') }}">Register</a></li>
                 {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->

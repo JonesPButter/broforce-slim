@@ -22,17 +22,5 @@
     "updatedAt": null,
     "role": "user",
     "verified": true
-  },
-  {
-    "id": "00a1fd2f9e3f33077ecfd67a4c79cb85",
-    "username": "Ralle",
-    "email": "ralle@me.com",
-    "name": "",
-    "familyname": "",
-    "password": "$2y$10$jbWjXDec2VcWRvQiXYFq1.m\/RC3GqJYBG5NhEXOmnQSm1PQM4xpGq",
-    "createdAt": "2016\/12\/01 14:09:56",
-    "updatedAt": "2016\/12\/01 14:09:56",
-    "role": "user",
-    "verified": false
   }
 ]
