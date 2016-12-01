@@ -13,5 +13,6 @@ class UsertableController extends AbstractController
 {
     public function getTable($request,$response){
         return "in progress";
+
     }
 }
