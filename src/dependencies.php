@@ -1,22 +1,21 @@
 <?php
 // "use"-imports for better readability
+use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
-use Monolog\Handler\StreamHandler;
-use \Slim\Views\Twig;
-use \Slim\Views\TwigExtension;
-use \Slim\Flash\Messages;
-use Source\Validation\Validator;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use \Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use\Source\Models\DAOs\UserDAO;
-use \Source\Models\Auth\Auth;
-use Source\Middleware\ValidationErrorsMiddleware;
-use Source\Middleware\OldInputMiddleware;
 use Respect\Validation\Validator as RespectValidator;
+use Slim\Flash\Messages;
+use Slim\Views\Twig;
+use Slim\Views\TwigExtension;
+use Source\Middleware\OldInputMiddleware;
+use Source\Middleware\ValidationErrorsMiddleware;
+use Source\Models\Auth\Auth;
+use Source\Models\DAOs\UserDAO;
+use Source\Validation\Validator;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 // DIC configuration
 
