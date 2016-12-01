@@ -2,8 +2,9 @@
 
 {% block content %}
     <h1>List of all users</h1>
+    <div><a href="{{ path_for('register') }}" class="btn btn-info">Add new user</a></div>
     <div class="usertable">
-        <table class="table table-bordered">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -16,6 +17,7 @@
                     <th>Updated at</th>
                     <th>Role</th>
                     <th>Verified</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,8 +34,11 @@
                             <td>{{ user.getUpdatedAt }}</td>
                             <td>{{ user.getRole }}</td>
                             <td>{{ user.getVerified }}</td>
+                            <td><a href="{{ path_for('changeData') }}" class="btn btn-info">Edit</a></td>
                         </tr>
                     {% endfor %}
+                {% else %}
+                    <p>No records found</p>
                 {% endif %}
             </tbody>
         </table>
