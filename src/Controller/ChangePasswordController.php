@@ -17,6 +17,8 @@ class ChangePasswordController extends AbstractController
     }
 
     public function changePassword($request, $response){
+        $userID = $request->getAttribute('route')->getArgument('id');
+
         // Validate form-input
         $validation = $this->ci->get('validator')->validate($request,[
             'password_old' => Validator::noWhitespace()->notEmpty(),
@@ -24,7 +26,7 @@ class ChangePasswordController extends AbstractController
         ]);
 
         if(!$validation->failed()){
-            $user = $this->ci->get('userDAO')->getUserByID($_SESSION['user']);
+            $user = $this->ci->get('userDAO')->getUserByID($userID);
             if(password_verify($request->getParam('password_old'),$user->getPassword())){
                 $user->setPassword(password_hash($request->getParam('password_new'), PASSWORD_DEFAULT));
                 $this->ci->get('userDAO')->updateUser($user);

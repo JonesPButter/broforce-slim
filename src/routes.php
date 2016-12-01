@@ -38,7 +38,7 @@ $app->group("", function () {
     // ************** Change User Data - Routes **************
     // Get the change password page
     $this->get("/userservice/change/password", '\Source\Controller\ChangePasswordController:getForm')->setName("changePW");
-    $this->post("/userservice/change/password", '\Source\Controller\ChangePasswordController:changePassword')->setName("changePW.post");
+    $this->post("/userservice/change/password/{id}", '\Source\Controller\ChangePasswordController:changePassword')->setName("changePW.post");
     $this->get("/userservice/change/userdata", '\Source\Controller\ChangeUserDataController:getForm')->setName("changeData");
     $this->post("/userservice/change/userdata", '\Source\Controller\ChangeUserDataController:changeData')->setName("changeData.post");
 
