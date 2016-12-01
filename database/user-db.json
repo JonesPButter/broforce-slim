@@ -20,7 +20,7 @@
     "password": "$2y$10$HcTB\/\/KtctQ\/GR2XeaBgi.SUUMBrBWc3YibJ3efeT2MDJ7QT8BB7K",
     "createdAt": "2016\/11\/29 16:59:22",
     "updatedAt": null,
-    "role": "user",
+    "role": "admin",
     "verified": true
   }
 ]

@@ -50,3 +50,4 @@ $app->get("/userservice/change/password", '\Source\Controller\ChangePasswordCont
 $app->post("/userservice/change/password", '\Source\Controller\ChangePasswordController:changePassword')->setName("changePW.post");
 $app->get("/userservice/change/userdata", '\Source\Controller\ChangeUserDataController:getForm')->setName("changeData");
 $app->post("/userservice/change/userdata", '\Source\Controller\ChangeUserDataController:changeData')->setName("changeData.post");
+$app->get("/userservice/usertable",'\Source\Controller\UsertableController:getTable')->setName("usertable");
