@@ -29,12 +29,12 @@
                             <td>{{ user.getEmail }}</td>
                             <td>{{ user.getName }}</td>
                             <td>{{ user.getFamilyname }}</td>
-                            <td>never mind!</td>
+                            <td>*************************</td>
                             <td>{{ user.getCreatedAt }}</td>
                             <td>{{ user.getUpdatedAt }}</td>
                             <td>{{ user.getRole }}</td>
-                            <td>{{ user.getVerified }}</td>
-                            <td><a href="{{ path_for('changeData') }}" class="btn btn-info">Edit</a></td>
+                            <td>{{ user.getVerified ? 'yes' : 'no' }}</td>
+                            <td><a href="{{ path_for('changeData', {'id':user.getId}) }}" class="btn btn-info">Edit</a></td>
                         </tr>
                     {% endfor %}
                 {% else %}

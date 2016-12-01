@@ -13,7 +13,8 @@ class ChangePasswordController extends AbstractController
 {
 
     public function getForm($request, $response){
-        return $this->ci->get('view')->render($response, 'changePassword.twig');
+        $userID = $request->getAttribute('route')->getArgument('id');
+        return $this->ci->get('view')->render($response, 'changePassword.twig', array("id" => $userID));
     }
 
     public function changePassword($request, $response){
