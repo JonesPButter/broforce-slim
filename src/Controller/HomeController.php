@@ -12,7 +12,6 @@ use Source\Models\User;
 class HomeController extends AbstractController
 {
     public function index($request, $response, $args){
-        //$this->ci->get('flash')->addMessage('info', 'test message');
         return $this->ci->get('view')->render($response, 'home.twig');
     }
 }
