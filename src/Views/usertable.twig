@@ -24,17 +24,20 @@
                 {% if userTable %}
                     {% for user in userTable %}
                         <tr>
-                            <td>{{ user.getId }}</td>
-                            <td>{{ user.getUsername }}</td>
-                            <td>{{ user.getEmail }}</td>
-                            <td>{{ user.getName }}</td>
-                            <td>{{ user.getFamilyname }}</td>
-                            <td>*************************</td>
-                            <td>{{ user.getCreatedAt }}</td>
-                            <td>{{ user.getUpdatedAt }}</td>
-                            <td>{{ user.getRole }}</td>
-                            <td>{{ user.getVerified ? 'yes' : 'no' }}</td>
-                            <td><a href="{{ path_for('changeData', {'id':user.getId}) }}" class="btn btn-info">Edit</a></td>
+                            <form action="{{ path_for('usertable.post') }}" method="post">
+                                <td>{{ user.getId }} <input type="hidden" name="id" value="{{ user.getID }}"></td>
+                                <td>{{ user.getUsername }}</td>
+                                <td>{{ user.getEmail }}</td>
+                                <td>{{ user.getName }}</td>
+                                <td>{{ user.getFamilyname }}</td>
+                                <td>*************************</td>
+                                <td>{{ user.getCreatedAt }}</td>
+                                <td>{{ user.getUpdatedAt }}</td>
+                                <td>{{ user.getRole }}</td>
+                                <td>{{ user.getVerified ? 'yes' : 'no' }}</td>
+                                <td><a href="{{ path_for('changeData', {'id':user.getId}) }}" class="btn btn-info">Edit</a></td>
+                                <td><button type="submit" class="btn btn-info">Delete</button></td>
+                            </form>
                         </tr>
                     {% endfor %}
                 {% else %}

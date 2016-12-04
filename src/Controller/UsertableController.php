@@ -16,4 +16,19 @@ class UsertableController extends AbstractController
     public function getTable($request,$response){
         return $this->ci->get('view')->render($response, 'usertable.twig');
     }
+
+    public function deleteUser($request,$response){
+        $userID = $request->getParam('id');
+        $users = $this->ci->get('userDAO')->getTable();
+        $newUsers = array();
+        foreach ($users as $user) {
+            $id = $user->getId();
+            if ($id != $userID){
+                $newUsers[] = $user;
+            }
+        }
+        $this->ci->get('userDAO')->saveTable($newUsers);
+        $this->ci->get('flash')->addMessage('info', 'User with ID "' . $userID . '" successfully deleted');
+        return $response->withRedirect($this->ci->get('router')->pathFor('usertable'));
+    }
 }

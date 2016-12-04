@@ -53,6 +53,7 @@ $app->group("", function () {
         $this->post("/registration", '\Source\Controller\RegistrationController:postRegistration')->setName("register.post");
 
         $this->get("/userservice/usertable", '\Source\Controller\UsertableController:getTable')->setName("usertable");
+        $this->post("/userservice/usertable", '\Source\Controller\UsertableController:deleteUser')->setName("usertable.post");
 
     })->add(new AdminMiddleware($container));
 
