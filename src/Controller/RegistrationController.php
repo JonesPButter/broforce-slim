@@ -33,7 +33,10 @@ class RegistrationController extends AbstractController
             $this->ci->get('userDAO')->create($request->getParam('username'), $request->getParam('email'),
                 password_hash($request->getParam('password'), PASSWORD_DEFAULT));
 
+            $token = $this->ci->get('auth')->createToken();
+
             $this->ci->get('flash')->addMessage('info', 'New user was successfully created');
+            $this->ci->get('flash')->addMessage('info', $token);
             return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         }
     }
