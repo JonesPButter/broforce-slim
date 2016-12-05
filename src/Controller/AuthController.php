@@ -10,6 +10,7 @@ namespace Source\Controller;
 
 
 use Respect\Validation\Validator;
+use Slim\Container;
 
 class AuthController extends AbstractController
 {
@@ -21,7 +22,6 @@ class AuthController extends AbstractController
     public function index($request, $response){
         return $this->ci->get('view')->render($response, 'logUserIn.twig');
     }
-
 
     /**
      * This function receives the data, typed in and submitted by the user
@@ -55,4 +55,8 @@ class AuthController extends AbstractController
         return $response->withRedirect($this->ci->get('router')->pathFor('home'));
     }
 
+    public function verify($request, $response)
+    {
+        return true;
+    }
 }

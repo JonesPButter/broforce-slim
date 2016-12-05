@@ -28,6 +28,8 @@ $app->group("", function () {
     $this->post("/authentication/login", '\Source\Controller\AuthController:login')->setName("logUserIn.post");
     // Log the the user out
     $this->get("/authentication/logout", '\Source\Controller\AuthController:logout')->setName("logUserOut");
+    // verify link
+    $this->get("/authentication/{userid}/{token}", '\Source\Controller\AuthController:verify')->setName("logUserOut");
 });
 
 
