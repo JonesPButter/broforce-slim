@@ -27,8 +27,7 @@ class Auth
             return false;
         }
 
-        //TODO if(password_verify($password,$user->getPassword()) && $user->getVerified()){
-        if(password_verify($password,$user->getPassword())){
+        if(password_verify($password,$user->getPassword())&& $user->getVerified()){
             $_SESSION['user'] = $user->getId();
             return true;
         }
