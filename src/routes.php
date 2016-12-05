@@ -47,8 +47,6 @@ $app->group("", function () {
     // admin - routes
     $this->group("", function(){
         // ************** Registration - Routes **************
-        // Get the registration success page
-        $this->get("/registration/success", '\Source\Controller\RegistrationController:success')->setName("register.success");
         //Get the registration page
         $this->get("/registration", '\Source\Controller\RegistrationController:getRegistration')->setName("register");
         // post the user input

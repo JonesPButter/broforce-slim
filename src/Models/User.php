@@ -32,6 +32,7 @@ class User
      * @param $email
      * @param $password
      * @param $role
+     * @param $token
      */
     public function __construct($id, $username, $email, $password, $role, $token)
     {

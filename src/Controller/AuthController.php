@@ -60,9 +60,22 @@ class AuthController extends AbstractController
         $userID = $request->getAttribute('route')->getArgument('userid');
         $token = $request->getAttribute('route')->getArgument('token');
         $user = $this->ci->get('userDAO')->getUserByID($userID);
-
-        $user->setToken($token);
-        var_dump($user); die();
-        return true;
+//
+        if(strcmp($token, $user->getToken()) !== 0){
+            $this->ci->get('flash')->addMessage('error', 'The Token is not valid.');
+            return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+        } else{
+            //TODO
+            $tokenTimeInMillis = floatval(explode("-", $token)[1]);
+            $currentTimeInMillis = round(microtime(true) * 1000);
+            if(($currentTimeInMillis - $tokenTimeInMillis) >= 1800000){
+                $this->ci->get('flash')->addMessage('error', 'The Token is not valid anymore.');
+                return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+            }
+        }
+        $user->setVerified(true);
+        $this->ci->get('userDAO')->updateUser($user);
+        $this->ci->get('flash')->addMessage('info', 'Email was verified.');
+        return $response->withRedirect($this->ci->get('router')->pathFor('home'));
     }
 }

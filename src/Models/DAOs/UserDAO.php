@@ -51,7 +51,7 @@ class UserDAO extends AbstractDAO
     public function getUserWithEmail($email){
         $result = 0;
         foreach ($this->getTable() as $user){
-            if($user->getEmail() == $email){
+            if(strcmp($email, $user->getEmail()) == 0){
                 $result = $user;
                 break;
             }
@@ -63,7 +63,7 @@ class UserDAO extends AbstractDAO
     public function getUserByID($id){
         $result = 0;
         foreach ($this->getTable() as $user){
-            if($user->getId() == $id){
+            if(strcmp($user->getId(), $id) == 0){
                 $result = $user;
                 break;
             }
@@ -74,7 +74,7 @@ class UserDAO extends AbstractDAO
     public function getUserByUsername($username){
         $result = 0;
         foreach ($this->getTable() as $user){
-            if($user->getUsername() == $username){
+            if( strcmp($username, $user->getUsername()) == 0){
                 $result = $user;
                 break;
             }
@@ -86,7 +86,7 @@ class UserDAO extends AbstractDAO
         $users = $this->getTable();
         $newUsers = array();
         foreach ($users as $user){
-            if($user->getId() == $updatedUser->getId()){
+            if(strcmp($user->getId(),$updatedUser->getId()) == 0){
                 $newUsers[] = $updatedUser;
             } else{
                 $newUsers[] = $user;

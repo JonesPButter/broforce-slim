@@ -1,1 +1,28 @@
-[{"id":"1","username":"testbro","email":"testbro@broforce.de","name":"broman","familyname":"bronson","password":"$2y$10$bOyq6jtYph0Gr2GGGDL1ouGM6jhN83.CXumKiz3ZZwfx0XDVqQ6Oa","createdAt":"2016\/11\/29 16:59:22","updatedAt":"2016\/12\/01 18:44:05","role":"user","verified":true,"token":"sadas123da23423sdaasd"},{"id":"2","username":"test","email":"test@test.de","name":null,"familyname":null,"password":"$2y$10$On02ykyapGca5ligdlg\/l.fxkv1GLBxkLvIHYGvto72knzgc5x7Ym","createdAt":"2016\/11\/29 16:59:22","updatedAt":null,"role":"admin","verified":true,"token":"yxcxycfgsdfg23423"},{"id":"ca713a0e3b6479170fe652d0dd51ef0c","username":"bro","email":"bro@bro.de","name":"","familyname":"","password":"$2y$10$fqnk0auVAkC4MKgxzpAzwuKpGJBJUTi\/ssZH.U28Vz90hV3fouBBO","createdAt":"2016\/12\/01 18:52:05","updatedAt":"2016\/12\/01 18:52:05","role":"user","verified":false,"token":"ljsadlfjalkdfjsla0892348234234"},{"id":"16e0d525613da99af07e08c64c9c551f","username":"userEins","email":"user@broforce.de","name":"","familyname":"","password":"$2y$10$7zhX1QLjeocC9vR5EBS6JOpJPUy7zzkgmj\/ZXszn\/LawTqSZ9J\/6a","createdAt":"2016\/12\/05 23:32:15","updatedAt":"2016\/12\/05 23:32:15","role":"user","verified":false,"token":"409c46b115d067d3426eb766da47bb96.1480977135782"}]
+[
+  {
+    "id": "1",
+    "username": "testbro",
+    "email": "testbro@broforce.de",
+    "name": "broman",
+    "familyname": "bronson",
+    "password": "$2y$10$bOyq6jtYph0Gr2GGGDL1ouGM6jhN83.CXumKiz3ZZwfx0XDVqQ6Oa",
+    "createdAt": "2016\/11\/29 16:59:22",
+    "updatedAt": "2016\/12\/01 18:44:05",
+    "role": "user",
+    "verified": true,
+    "token": "sadas123da23423sdaasd"
+  },
+  {
+    "id": "2",
+    "username": "test",
+    "email": "test@test.de",
+    "name": null,
+    "familyname": null,
+    "password": "$2y$10$On02ykyapGca5ligdlg\/l.fxkv1GLBxkLvIHYGvto72knzgc5x7Ym",
+    "createdAt": "2016\/11\/29 16:59:22",
+    "updatedAt": null,
+    "role": "admin",
+    "verified": true,
+    "token": "yxcxycfgsdfg23423"
+  }
+]

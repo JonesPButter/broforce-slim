@@ -44,13 +44,4 @@ class RegistrationController extends AbstractController
             return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         }
     }
-
-    /**
-     * This site shows up, when the user was successfully registered
-     * TODO Should be only viewed by a user, if he was really successfully registered
-     */
-    public function success($request, $response)
-    {
-        return $this->ci->get('view')->render($response, 'registrationSuccess.twig');
-    }
 }
