@@ -33,7 +33,7 @@ class User
      * @param $password
      * @param $role
      */
-    public function __construct($id, $username, $email, $password, $role)
+    public function __construct($id, $username, $email, $password, $role, $token)
     {
         $this->id = $id;
         $this->username = $username;
@@ -45,8 +45,8 @@ class User
         $this->updated_at = date('Y/m/d H:i:s');
         $this->role = $role;
         $this->verified = false;
+        $this->token = $token;
     }
-
 
     public function to_json(){
         return json_encode(get_object_vars($this));
@@ -212,5 +212,19 @@ class User
         $this->verified = $verified;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
 
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
 }

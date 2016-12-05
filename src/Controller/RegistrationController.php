@@ -30,13 +30,18 @@ class RegistrationController extends AbstractController
         if ($validation->failed()) {
             return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         } else {
-            $this->ci->get('userDAO')->create($request->getParam('username'), $request->getParam('email'),
-                password_hash($request->getParam('password'), PASSWORD_DEFAULT));
-
             $token = $this->ci->get('auth')->createToken();
 
-            $this->ci->get('flash')->addMessage('info', 'New user was successfully created');
-            $this->ci->get('flash')->addMessage('info', $token);
+            $this->ci->get('userDAO')->create($request->getParam('username'), $request->getParam('email'),
+                password_hash($request->getParam('password'), PASSWORD_DEFAULT), $token);
+
+            $milliseconds = round(microtime(true) * 1000);
+            $userTocken = $token . ".". $milliseconds;
+            $user = $this->ci->get('userDAO')->getUserWithEmail($request->getParam('email'));
+            $userId = $user->getId();
+            $url = "https://broforce.informatik.haw-hamburg.de/verify.php?t=$userTocken&user=$userId";
+
+            $this->ci->get('flash')->addMessage('info', 'Please verify your email address at '. $url);
             return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         }
     }

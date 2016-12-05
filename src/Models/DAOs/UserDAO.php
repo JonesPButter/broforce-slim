@@ -12,13 +12,13 @@ use \Source\Models\User;
 class UserDAO extends AbstractDAO
 {
 
-    public function create($username, $email, $password){
+    public function create($username, $email, $password, $token){
         // get Usertable
         $users = $this->getTable();
 
         // create new User
         $id = md5(uniqid(rand(), true));
-        $user = new User($id, $username, $email, $password, "user");
+        $user = new User($id, $username, $email, $password, "user", $token);
 
         // add new User to the Usertable
         $users[] = $user;

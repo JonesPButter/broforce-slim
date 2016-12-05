@@ -50,8 +50,7 @@ class Auth
         }
     }
 
-    public function createToken()
-    {
+    public function createTOKEN(){
         return bin2hex(openssl_random_pseudo_bytes(16));
     }
 }
