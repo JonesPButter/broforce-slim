@@ -19,7 +19,6 @@ class ChangePasswordController extends AbstractController
 
     public function changePassword($request, $response){
         $userID = $request->getAttribute('route')->getArgument('id');
-
         // Validate form-input
         $validation = $this->ci->get('validator')->validate($request,[
             'password_old' => Validator::noWhitespace()->notEmpty(),
@@ -36,6 +35,6 @@ class ChangePasswordController extends AbstractController
                 $this->ci->get('flash')->addMessage('error', "Your old password wasn't correct.");
             }
         }
-        return $response->withRedirect($this->ci->get('router')->pathfor('changePW'));
+        return $response->withRedirect($this->ci->get('router')->pathfor('changePW', ['id'=>$userID]));
     }
 }
