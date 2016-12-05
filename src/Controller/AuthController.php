@@ -57,6 +57,12 @@ class AuthController extends AbstractController
 
     public function verify($request, $response)
     {
+        $userID = $request->getAttribute('route')->getArgument('userid');
+        $token = $request->getAttribute('route')->getArgument('token');
+        $user = $this->ci->get('userDAO')->getUserByID($userID);
+
+        $user->setToken($token);
+        var_dump($user); die();
         return true;
     }
 }

@@ -30,18 +30,17 @@ class RegistrationController extends AbstractController
         if ($validation->failed()) {
             return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         } else {
-            $token = $this->ci->get('auth')->createToken();
+            $milliseconds = round(microtime(true) * 1000);
+            $token = $this->ci->get('auth')->createToken() . "-". $milliseconds;
 
-            $this->ci->get('userDAO')->create($request->getParam('username'), $request->getParam('email'),
+            $user = $this->ci->get('userDAO')->create($request->getParam('username'), $request->getParam('email'),
                 password_hash($request->getParam('password'), PASSWORD_DEFAULT), $token);
 
-            $milliseconds = round(microtime(true) * 1000);
-            $userTocken = $token . ".". $milliseconds;
-            $user = $this->ci->get('userDAO')->getUserWithEmail($request->getParam('email'));
             $userId = $user->getId();
-            $url = "https://broforce.informatik.haw-hamburg.de/verify.php?t=$userTocken&user=$userId";
+            $url = $this->ci->get('router')->pathFor('verify',['userid'=>$userId, 'token'=>$token]);
 
-            $this->ci->get('flash')->addMessage('info', 'Please verify your email address at '. $url);
+            $this->ci->get('flash')->addMessage('info',
+                'Please verify your email address at https://broforce.informatik.haw-hamburg.de'. $url);
             return $response->withRedirect($this->ci->get('router')->pathFor('register'));
         }
     }
