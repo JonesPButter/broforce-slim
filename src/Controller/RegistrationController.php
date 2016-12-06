@@ -24,7 +24,7 @@ class RegistrationController extends AbstractController
         $validation = $this->ci->get('validator')->validate($request, [
             'email' => Validator::noWhitespace()->notEmpty()->email()->emailAvailable($this->ci->get('userDAO')),
             'username' => Validator::noWhitespace()->notEmpty()->alpha()->usernameAvailable($this->ci->get('userDAO')),
-            'password' => Validator::noWhitespace()->notEmpty(),
+            'password' => Validator::noWhitespace()->notEmpty()->passwordLength($this->ci->get('userDAO'))->passwordNumber($this->ci->get('userDAO'))->passwordLetter($this->ci->get('userDAO')),
         ]);
 
         if ($validation->failed()) {
