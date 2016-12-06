@@ -53,11 +53,11 @@ class PasswordRequestController extends AbstractController
                 if(($currentTimeInMillis - $tokenTimeInMillis) >= 1800000){
                     $this->ci->get('flash')->addMessage('error', 'The Token is not valid anymore.');
                 } else{
-                    // Token valid -> user is allowed to change PW
                     return $this->ci->get('view')->render($response, 'createNewPW.twig', ['id'=>$userID, 'token'=>$token]);
                 }
             }
         }
+        die();
         return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
     }
 
@@ -66,11 +66,7 @@ class PasswordRequestController extends AbstractController
         $token = $request->getAttribute('route')->getArgument('userid');
         $user = $this->ci->get('userDAO')->getUserByID($userID);
         if($user){
-            $validation = $this->ci->get('validator')->validate($request,[
-                'password' => Validator::noWhitespace()->notEmpty()->passwordLength($this->ci->get('userDAO'))->passwordNumber($this->ci->get('userDAO'))->passwordLetter($this->ci->get('userDAO')),
-            ]);
-
-            if(!$validation->failed()){
+            if($request->getParam('password') != ''){
                 $user->setPassword(password_hash($request->getParam('password'), PASSWORD_DEFAULT));
                 $user->setToken("");
                 $this->ci->get('userDAO')->updateUser($user);
