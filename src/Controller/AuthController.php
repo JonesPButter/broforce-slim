@@ -66,7 +66,6 @@ class AuthController extends AbstractController
                 $this->ci->get('flash')->addMessage('error', 'Error.');
                 return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
             } else{
-                //TODO
                 $tokenTimeInMillis = floatval(explode("-", $token)[1]);
                 $currentTimeInMillis = round(microtime(true) * 1000);
                 if(($currentTimeInMillis - $tokenTimeInMillis) >= 1800000){

@@ -32,9 +32,12 @@ $app->group("", function () {
     $this->get("/authentication/{userid}/{token}", '\Source\Controller\AuthController:verify')->setName("verify");
 
     $this->get("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:getForm')->setName("passwordRequest");
-    $this->post("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:sendPassword')->setName("passwordRequest.post");
-    $this->get("/authentification/passwordRequest/newPW/{pw}", '\Source\Controller\PasswordRequestController:showNewPW')->setName("showNewPW");
-});
+    $this->post("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:sendLink')->setName("passwordRequest.post");
+    $this->get("/authentification/passwordRequest/create/{userid}/{token}",
+        '\Source\Controller\PasswordRequestController:getCreateNewPWForm')->setName("createNewPW");
+    $this->post("/authentification/passwordRequest/create/{userid}",
+        '\Source\Controller\PasswordRequestController:createNewPW')->setName("createNewPW.post");
+ });
 
 
 // authorized Routes
