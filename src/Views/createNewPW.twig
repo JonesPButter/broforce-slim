@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Change your Password</div>
                 <div class="panel-body">
-                    <form action="{{ path_for('createNewPW.post', {'userid':id})}}" method="post">
+                    <form action="{{ path_for('createNewPW.post', {'userid':id, 'token':token})}}" method="post">
                         <div class="form-group {{ errors.password ? 'has-error' : '' }}">
                             <label for="password">(New) Password</label>
                             <input type="password" name="password" id="password" class="form-control">

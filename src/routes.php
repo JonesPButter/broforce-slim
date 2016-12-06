@@ -35,7 +35,7 @@ $app->group("", function () {
     $this->post("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:sendLink')->setName("passwordRequest.post");
     $this->get("/authentification/passwordRequest/create/{userid}/{token}",
         '\Source\Controller\PasswordRequestController:getCreateNewPWForm')->setName("createNewPW");
-    $this->post("/authentification/passwordRequest/create/{userid}",
+    $this->post("/authentification/passwordRequest/create/{userid}/{token}",
         '\Source\Controller\PasswordRequestController:createNewPW')->setName("createNewPW.post");
  });
 

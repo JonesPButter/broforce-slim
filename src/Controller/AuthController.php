@@ -62,7 +62,7 @@ class AuthController extends AbstractController
         $user = $this->ci->get('userDAO')->getUserByID($userID);
 //
         if($user){
-            if($token == "" && strcmp($token, $user->getToken()) !== 0){
+            if($token == "" || strcmp($token, $user->getToken()) !== 0){
                 $this->ci->get('flash')->addMessage('error', 'Error.');
                 return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
             } else{

@@ -54,7 +54,7 @@ class PasswordRequestController extends AbstractController
                     $this->ci->get('flash')->addMessage('error', 'The Token is not valid anymore.');
                 } else{
                     // Token valid -> user is allowed to change PW
-                    return $this->ci->get('view')->render($response, 'createNewPW.twig', ['id'=>$userID]);
+                    return $this->ci->get('view')->render($response, 'createNewPW.twig', ['id'=>$userID, 'token'=>$token]);
                 }
             }
         }
@@ -63,12 +63,21 @@ class PasswordRequestController extends AbstractController
 
     public function createNewPW($request, $response){
         $userID = $request->getAttribute('route')->getArgument('userid');
+        $token = $request->getAttribute('route')->getArgument('userid');
         $user = $this->ci->get('userDAO')->getUserByID($userID);
         if($user){
-            $user->setPassword(password_hash($request->getParam('password'), PASSWORD_DEFAULT));
-            $user->setToken("");
-            $this->ci->get('userDAO')->updateUser($user);
-            $this->ci->get('flash')->addMessage('info', "The users password has been successfully changed.");
+            $validation = $this->ci->get('validator')->validate($request,[
+                'password' => Validator::noWhitespace()->notEmpty()->passwordLength($this->ci->get('userDAO'))->passwordNumber($this->ci->get('userDAO'))->passwordLetter($this->ci->get('userDAO')),
+            ]);
+
+            if(!$validation->failed()){
+                $user->setPassword(password_hash($request->getParam('password'), PASSWORD_DEFAULT));
+                $user->setToken("");
+                $this->ci->get('userDAO')->updateUser($user);
+                $this->ci->get('flash')->addMessage('info', "The users password has been successfully changed.");
+            } else{
+                return $response->withRedirect($this->ci->get('router')->pathFor('createNewPW',['userid'=>$userID, 'token'=>$token]));
+            }
         } else{
             $this->ci->get('flash')->addMessage('error', "Not allowed.");
         }
