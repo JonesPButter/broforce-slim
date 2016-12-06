@@ -22,6 +22,7 @@
                             {% endif %}
                         </div>
                         <button type="submit" class="btn btn-default">Login!</button>
+                        <td><a href="{{ path_for('passwordRequest') }}" class="btn btn-info">Forgot Password</a></td>
                     </form>
                 </div>
                 {% if flash.getMessage('error-login') %}

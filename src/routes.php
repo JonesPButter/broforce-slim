@@ -30,6 +30,10 @@ $app->group("", function () {
     $this->get("/authentication/logout", '\Source\Controller\AuthController:logout')->setName("logUserOut");
     // verify link
     $this->get("/authentication/{userid}/{token}", '\Source\Controller\AuthController:verify')->setName("verify");
+
+    $this->get("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:getForm')->setName("passwordRequest");
+    $this->post("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:sendPassword')->setName("passwordRequest.post");
+    $this->get("/authentification/passwordRequest/newPW/{pw}", '\Source\Controller\PasswordRequestController:showNewPW')->setName("showNewPW");
 });
 
 
@@ -51,7 +55,8 @@ $app->group("", function () {
         $this->get("/registration", '\Source\Controller\RegistrationController:getRegistration')->setName("register");
         // post the user input
         $this->post("/registration", '\Source\Controller\RegistrationController:postRegistration')->setName("register.post");
-
+        $this->get("/adminservice/change/password/{id}", '\Source\Controller\ChangePasswordForUserController:getForm')->setName("changePWForUser");
+        $this->post("/adminservice/change/password/{id}", '\Source\Controller\ChangePasswordForUserController:changePassword')->setName("changePWForUser.post");
         $this->get("/userservice/usertable", '\Source\Controller\UsertableController:getTable')->setName("usertable");
         $this->post("/userservice/usertable", '\Source\Controller\UsertableController:deleteUser')->setName("usertable.post");
 

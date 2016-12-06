@@ -61,21 +61,26 @@ class AuthController extends AbstractController
         $token = $request->getAttribute('route')->getArgument('token');
         $user = $this->ci->get('userDAO')->getUserByID($userID);
 //
-        if(strcmp($token, $user->getToken()) !== 0){
-            $this->ci->get('flash')->addMessage('error', 'The Token is not valid.');
-            return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
-        } else{
-            //TODO
-            $tokenTimeInMillis = floatval(explode("-", $token)[1]);
-            $currentTimeInMillis = round(microtime(true) * 1000);
-            if(($currentTimeInMillis - $tokenTimeInMillis) >= 1800000){
-                $this->ci->get('flash')->addMessage('error', 'The Token is not valid anymore.');
+        if($user){
+            if($token == "" && strcmp($token, $user->getToken()) !== 0){
+                $this->ci->get('flash')->addMessage('error', 'Error.');
                 return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+            } else{
+                //TODO
+                $tokenTimeInMillis = floatval(explode("-", $token)[1]);
+                $currentTimeInMillis = round(microtime(true) * 1000);
+                if(($currentTimeInMillis - $tokenTimeInMillis) >= 1800000){
+                    $this->ci->get('flash')->addMessage('error', 'The Token is not valid anymore.');
+                    return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+                }
             }
+            $user->setVerified(true);
+            $user->setToken("");
+            $this->ci->get('userDAO')->updateUser($user);
+            $this->ci->get('flash')->addMessage('info', 'Email was verified.');
+        } else{
+            $this->ci->get('flash')->addMessage('error', "The user doesn't exist.");
         }
-        $user->setVerified(true);
-        $this->ci->get('userDAO')->updateUser($user);
-        $this->ci->get('flash')->addMessage('info', 'Email was verified.');
         return $response->withRedirect($this->ci->get('router')->pathFor('home'));
     }
 }
