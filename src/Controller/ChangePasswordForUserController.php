@@ -22,7 +22,7 @@ class ChangePasswordForUserController extends AbstractController
         // Validate form-input
         $validation = $this->ci->get('validator')->validate($request,[
             'admin_pw' => Validator::noWhitespace()->notEmpty(),
-            'user_pw' => Validator::noWhitespace()->notEmpty(),
+            'user_pw' => Validator::noWhitespace()->notEmpty()->passwordLength($this->ci->get('userDAO'))->passwordNumber($this->ci->get('userDAO'))->passwordLetter($this->ci->get('userDAO')),
         ]);
 
         if(!$validation->failed()){
