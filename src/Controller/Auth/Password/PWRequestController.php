@@ -6,16 +6,31 @@
  * Time: 09:31
  */
 
-namespace Source\Controller;
+namespace Source\Controller\Auth\Password;
 use Respect\Validation\Validator;
+use Source\Controller\AbstractController;
 
-class PasswordRequestController extends AbstractController
+/**
+ * Class PWRequestController
+ * @package Source\Controller\Auth\Password
+ *
+ * Description: The PWRequestController handles the password request process.
+ * Example: A user has forgotten his password. So what he does is, he clicks on the "forgot password" button and
+ * after that, he will communicate with this controller.
+ */
+class PWRequestController extends AbstractController
 {
 
+    /*
+     * Returns the forgotPW page
+     */
     public function getForm($request, $response){
         return $this->ci->get('view')->render($response, 'forgotPW.twig');
     }
 
+    /*
+     * Sends the createNewPW link, if the given email was correct.
+     */
     public function sendLink($request, $response){
         $email = $request->getParam('email');
         // Validate form-input
@@ -38,14 +53,17 @@ class PasswordRequestController extends AbstractController
                 $this->ci->get('flash')->addMessage('error', 'The email address is unknown.');
             }
         }
-        return $response->withRedirect($this->ci->get('router')->pathfor('logUserIn'));
+        return $response->withRedirect($this->ci->get('router')->pathfor('login'));
     }
 
+    /*
+     * Returns the createNewPW Page if the given token and the userID are valid.
+     */
     public function getCreateNewPWForm($request, $response){
         $userID = $request->getAttribute('route')->getArgument('userid');
         $token = $request->getAttribute('route')->getArgument('token');
-
         $user = $this->ci->get('userDAO')->getUserByID($userID);
+
         if($user){
             if(strcmp($token, $user->getToken()) === 0){
                 $tokenTimeInMillis = floatval(explode("-", $token)[1]);
@@ -57,16 +75,23 @@ class PasswordRequestController extends AbstractController
                 }
             }
         }
-        die();
-        return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+        return $response->withRedirect($this->ci->get('router')->pathFor('login'));
     }
 
+    /*
+     * Validates the new Password and saves it, if it matches all given rules.
+     */
     public function createNewPW($request, $response){
         $userID = $request->getAttribute('route')->getArgument('userid');
-        $token = $request->getAttribute('route')->getArgument('userid');
+        $token = $request->getAttribute('route')->getArgument('token');
         $user = $this->ci->get('userDAO')->getUserByID($userID);
+
         if($user){
-            if($request->getParam('password') != ''){
+            $validation = $this->ci->get('validator')->validate($request,[
+                'password' => Validator::noWhitespace()->notEmpty()->passwordLength()->passwordLetter()->passwordNumber(),
+            ]);
+
+            if(!$validation->failed()){
                 $user->setPassword(password_hash($request->getParam('password'), PASSWORD_DEFAULT));
                 $user->setToken("");
                 $this->ci->get('userDAO')->updateUser($user);
@@ -77,6 +102,6 @@ class PasswordRequestController extends AbstractController
         } else{
             $this->ci->get('flash')->addMessage('error', "Not allowed.");
         }
-        return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+        return $response->withRedirect($this->ci->get('router')->pathFor('login'));
     }
 }

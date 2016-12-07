@@ -23,7 +23,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ path_for('changePW', {'id':auth.user.getId}) }}">Change Password</a></li>
                             <li><a href="{{ path_for('changeData',{'id':auth.user.getId}) }}">Change Data</a></li>
-                            <li><a href="{{ path_for('logUserOut') }}">Logout</a></li>
+                            <li><a href="{{ path_for('logout') }}">Logout</a></li>
                         </ul>
                     </li>
                     {% if  auth.user.getRole == 'admin' %}
@@ -38,7 +38,7 @@
                         </li>
                     {% endif %}
                 {% else %}
-                    <li><a href="{{ path_for('logUserIn') }}">Login</a></li>
+                    <li><a href="{{ path_for('login') }}">Login</a></li>
                 {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->

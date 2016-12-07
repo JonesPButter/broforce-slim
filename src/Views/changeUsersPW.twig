@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Change the users password</div>
                 <div class="panel-body">
-                    <form action="{{ path_for('changePWForUser.post', {'id':id})}}" method="post">
+                    <form action="{{ path_for('changeUsersPW.post', {'id':id})}}" method="post">
                         <div class="form-group {{ errors.password_old ? 'has-error' : '' }}">
                             <label for="admin_pw">Admin Password</label>
                             <input type="password" name="admin_pw" id="admin_pw" class="form-control">

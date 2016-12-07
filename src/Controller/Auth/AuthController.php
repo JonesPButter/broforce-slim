@@ -6,11 +6,11 @@
  * Time: 14:26
  */
 
-namespace Source\Controller;
+namespace Source\Controller\Auth;
 
 
 use Respect\Validation\Validator;
-use Slim\Container;
+use Source\Controller\AbstractController;
 
 class AuthController extends AbstractController
 {
@@ -20,12 +20,12 @@ class AuthController extends AbstractController
      * which shows the Login form.
      */
     public function index($request, $response){
-        return $this->ci->get('view')->render($response, 'logUserIn.twig');
+        return $this->ci->get('view')->render($response, 'login.twig');
     }
 
     /**
      * This function receives the data, typed in and submitted by the user
-     * at the logUserIn.twig-view.
+     * at the login.twig-view.
      */
     public function login($request, $response){
         $validation = $this->ci->get('validator')->validate($request, [
@@ -35,7 +35,7 @@ class AuthController extends AbstractController
 
         // if input is not complete -> redirect and show error messages
         if ($validation->failed()) {
-            return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+            return $response->withRedirect($this->ci->get('router')->pathFor('login'));
         }
 
         // check if the user is in the database
@@ -45,7 +45,7 @@ class AuthController extends AbstractController
         );
         if (!$verified) {
             $this->ci->get('flash')->addMessage('error-login', 'We couldn\'t log you in. Please check your input.');
-            return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+            return $response->withRedirect($this->ci->get('router')->pathFor('login'));
         }
         return $response->withRedirect($this->ci->get('router')->pathFor('home'));
     }
@@ -64,13 +64,13 @@ class AuthController extends AbstractController
         if($user){
             if($token == "" || strcmp($token, $user->getToken()) !== 0){
                 $this->ci->get('flash')->addMessage('error', 'Error.');
-                return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+                return $response->withRedirect($this->ci->get('router')->pathFor('login'));
             } else{
                 $tokenTimeInMillis = floatval(explode("-", $token)[1]);
                 $currentTimeInMillis = round(microtime(true) * 1000);
                 if(($currentTimeInMillis - $tokenTimeInMillis) >= 1800000){
                     $this->ci->get('flash')->addMessage('error', 'The Token is not valid anymore.');
-                    return $response->withRedirect($this->ci->get('router')->pathFor('logUserIn'));
+                    return $response->withRedirect($this->ci->get('router')->pathFor('login'));
                 }
             }
             $user->setVerified(true);

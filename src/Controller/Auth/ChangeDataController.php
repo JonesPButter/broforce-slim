@@ -6,9 +6,11 @@
  * Time: 13:55
  */
 
-namespace Source\Controller;
+namespace Source\Controller\Auth;
 
-class ChangeUserDataController extends AbstractController
+use Source\Controller\AbstractController;
+
+class ChangeDataController extends AbstractController
 {
     public function getForm($request, $response){
         $userID = $request->getAttribute('route')->getArgument('id');

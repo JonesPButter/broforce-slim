@@ -6,15 +6,15 @@
  * Time: 08:58
  */
 
-namespace Source\Controller;
+namespace Source\Controller\Auth\Password;
 use Respect\Validation\Validator as Validator;
 
-class ChangePasswordForUserController extends AbstractController
+class ChangeUsersPWController extends AbstractController
 {
 
     public function getForm($request, $response){
         $userID = $request->getAttribute('route')->getArgument('id');
-        return $this->ci->get('view')->render($response, 'changePasswordForUser.twig', array("id" => $userID));
+        return $this->ci->get('view')->render($response, 'changeUsersPW.twig', array("id" => $userID));
     }
 
     public function changePassword($request, $response){
@@ -22,7 +22,7 @@ class ChangePasswordForUserController extends AbstractController
         // Validate form-input
         $validation = $this->ci->get('validator')->validate($request,[
             'admin_pw' => Validator::noWhitespace()->notEmpty(),
-            'user_pw' => Validator::noWhitespace()->notEmpty()->passwordLength($this->ci->get('userDAO'))->passwordNumber($this->ci->get('userDAO'))->passwordLetter($this->ci->get('userDAO')),
+            'user_pw' => Validator::noWhitespace()->notEmpty()->passwordLength()->passwordLetter()->passwordNumber(),
         ]);
 
         if(!$validation->failed()){
@@ -36,6 +36,6 @@ class ChangePasswordForUserController extends AbstractController
                 $this->ci->get('flash')->addMessage('error', "The Admin password wasn't correct.");
             }
         }
-        return $response->withRedirect($this->ci->get('router')->pathfor('changePWForUser', ['id'=>$userID]));
+        return $response->withRedirect($this->ci->get('router')->pathfor('changeUsersPW', ['id'=>$userID]));
     }
 }

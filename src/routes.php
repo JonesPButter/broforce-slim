@@ -11,57 +11,86 @@ use \Source\Middleware\AuthorizedMiddleware;
 
 // public Routes
 $app->group("", function () {
+
     // ************** Homepage - Routes **************
     // Get the Homepage
     $this->get("/home", '\Source\Controller\HomeController:index')->setName("home");
 
-    $container = $this->getContainer();
     // Redirect to Homepage
+    $container = $this->getContainer();
     $this->get("/", function ($request, $response) use ($container) {
         return $response->withRedirect($container->router->pathFor('home'));
     });
 
+
     // ************** Login/Logout - Routes **************
     // Get the Login page
-    $this->get("/authentication/login", '\Source\Controller\AuthController:index')->setName("logUserIn");
-    // Post the userinput
-    $this->post("/authentication/login", '\Source\Controller\AuthController:login')->setName("logUserIn.post");
+    $this->get("/authentication/login",'\Source\Controller\Auth\AuthController:index')->setName("login");
+    // Post the login data sent by the user
+    $this->post("/authentication/login", '\Source\Controller\Auth\AuthController:login')->setName("login.post");
     // Log the the user out
-    $this->get("/authentication/logout", '\Source\Controller\AuthController:logout')->setName("logUserOut");
-    // verify link
-    $this->get("/authentication/{userid}/{token}", '\Source\Controller\AuthController:verify')->setName("verify");
+    $this->get("/authentication/logout", '\Source\Controller\Auth\AuthController:logout')->setName("logout");
 
-    $this->get("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:getForm')->setName("passwordRequest");
-    $this->post("/authentification/passwordRequest", '\Source\Controller\PasswordRequestController:sendLink')->setName("passwordRequest.post");
-    $this->get("/authentification/passwordRequest/create/{userid}/{token}",
-        '\Source\Controller\PasswordRequestController:getCreateNewPWForm')->setName("createNewPW");
-    $this->post("/authentification/passwordRequest/create/{userid}/{token}",
-        '\Source\Controller\PasswordRequestController:createNewPW')->setName("createNewPW.post");
+
+    // ************** Verify Email **************
+    // verify link
+    $this->get("/authentication/{userid}/{token}", '\Source\Controller\Auth\AuthController:verify')->setName("verify");
+
+
+    // ************** Password Request - Routes **************
+    // get the password request page
+    $this->get("/authentication/passwordRequest",
+        '\Source\Controller\Auth\Password\PWRequestController:getForm')->setName("passwordRequest");
+    // send the password change link to the given email
+    $this->post("/authentication/passwordRequest",
+        '\Source\Controller\Auth\Password\PWRequestController:sendLink')->setName("passwordRequest.post");
+    // get the create new password page
+    $this->get("/authentication/passwordRequest/create/{userid}/{token}",
+        '\Source\Controller\Auth\Password\PWRequestController:getCreateNewPWForm')->setName("createNewPW");
+    // save the new password
+    $this->post("/authentication/passwordRequest/create/{userid}/{token}",
+        '\Source\Controller\Auth\Password\PWRequestController:createNewPW')->setName("createNewPW.post");
  });
 
 
 // authorized Routes
 $app->group("", function () {
-
     $container = $this->getContainer();
+
     // ************** Change User Data - Routes **************
     // Get the change password page
-    $this->get("/userservice/change/password/{id}", '\Source\Controller\ChangePasswordController:getForm')->setName("changePW");
-    $this->post("/userservice/change/password/{id}", '\Source\Controller\ChangePasswordController:changePassword')->setName("changePW.post");
-    $this->get("/userservice/change/userdata/{id}", '\Source\Controller\ChangeUserDataController:getForm')->setName("changeData");
-    $this->post("/userservice/change/userdata/{id}", '\Source\Controller\ChangeUserDataController:changeData')->setName("changeData.post");
+    $this->get("/userservice/change/password/{id}",
+        '\Source\Controller\Auth\Password\ChangePWController:getForm')->setName("changePW");
+    // Change the password
+    $this->post("/userservice/change/password/{id}",
+        '\Source\Controller\Auth\Password\ChangePWController:changePassword')->setName("changePW.post");
+    // Get the change data page
+    $this->get("/userservice/change/userdata/{id}",
+        '\Source\Controller\Auth\ChangeDataController:getForm')->setName("changeData");
+    // change the data
+    $this->post("/userservice/change/userdata/{id}",
+        '\Source\Controller\Auth\ChangeDataController:changeData')->setName("changeData.post");
 
     // admin - routes
     $this->group("", function(){
         // ************** Registration - Routes **************
         //Get the registration page
-        $this->get("/registration", '\Source\Controller\RegistrationController:getRegistration')->setName("register");
-        // post the user input
-        $this->post("/registration", '\Source\Controller\RegistrationController:postRegistration')->setName("register.post");
-        $this->get("/adminservice/change/password/{id}", '\Source\Controller\ChangePasswordForUserController:getForm')->setName("changePWForUser");
-        $this->post("/adminservice/change/password/{id}", '\Source\Controller\ChangePasswordForUserController:changePassword')->setName("changePWForUser.post");
+        $this->get("/registration",
+            '\Source\Controller\Auth\RegistrationController:getRegistration')->setName("register");
+        // registrate the user
+        $this->post("/registration",
+            '\Source\Controller\Auth\RegistrationController:postRegistration')->setName("register.post");
+        // Get the change-users-pw-page
+        $this->get("/adminservice/change/password/{id}",
+            '\Source\Controller\Auth\Password\ChangeUsersPWController:getForm')->setName("changeUsersPW");
+        // change the users pw
+        $this->post("/adminservice/change/password/{id}",
+            '\Source\Controller\Auth\Password\ChangeUsersPWController:changePassword')->setName("changeUsersPW.post");
+        // get the usertable page
         $this->get("/userservice/usertable", '\Source\Controller\UsertableController:getTable')->setName("usertable");
-        $this->post("/userservice/usertable", '\Source\Controller\UsertableController:deleteUser')->setName("usertable.post");
+        // delete a user
+        $this->post("/userservice/usertable",
+            '\Source\Controller\UsertableController:deleteUser')->setName("usertable.post");
 
     })->add(new AdminMiddleware($container));
 

@@ -1,7 +1,8 @@
 <?php
-namespace Source\Controller;
+namespace Source\Controller\Auth;
 
 use Respect\Validation\Validator as Validator;
+use Source\Controller\AbstractController;
 
 class RegistrationController extends AbstractController
 {

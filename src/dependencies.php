@@ -17,65 +17,86 @@ use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-// DIC configuration
-
+/*
+ * DIC configuration
+ * this container handles the dependency injection and has therefore knowledge about all
+ * dependencies in this project.
+ */
 $container = $app->getContainer();
 
-// monolog
-$container['logger'] = function ($c) {
-    $settings = $c->get('settings')['logger'];
+/*
+ * Monolog-Logger - A simple Logging - Framework. log messages will be written in /logs/app.log
+ */
+$container['logger'] = function ($container) {
+    $settings = $container->get('settings')['logger'];
     $logger = new Logger($settings['name']);
     $logger->pushProcessor(new UidProcessor());
     $logger->pushHandler(new StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
 
-// userDAO
-$container['userDAO'] = function ($c) {
-    $settings = $c->get('settings');
-    $userDAO = new UserDAO($c,$settings['userDbLocation']);
+/*
+ * UserDAO - The DAO that handles the database requests.
+ */
+$container['userDAO'] = function ($container) {
+    $settings = $container->get('settings');
+    $userDAO = new UserDAO($container,$settings['userDbLocation']);
     return $userDAO;
 };
 
-// Auth-class
-$container['auth'] = function($c){
-    $auth = new Auth($c->get('userDAO'));
+/*
+ * Our own Auth-Class. - Validates user and creates the Session if a user is valid.
+ */
+$container['auth'] = function($container){
+    $auth = new Auth($container->get('userDAO'));
     return $auth;
 };
 
-// add Twig-Views to the application
-$container['view'] = function($c){
-    $settings = $c->get('settings')['renderer'];
+/*
+ * Twig-View - A Framework for creating the frontend
+ */
+$container['view'] = function($container){
+    $settings = $container->get('settings')['renderer'];
 
     $view = new Twig( $settings['template_path'] , [
         'cache' => false,
     ]);
 
     $view->addExtension(new TwigExtension(
-        $c->router,
-        $c->request->getUri()
+        $container->router,
+        $container->request->getUri()
     ));
 
+    // adding some Environment variables, so that we can assign them in the views.
     $view->getEnvironment()->addGlobal('auth', [
-        'check' => $c->auth->isUserLoggedIn(),
-        'user' => $c->auth->getUser(),
+        'check' => $container->auth->isUserLoggedIn(),
+        'user' => $container->auth->getUser(),
     ]);
-
-    $view->getEnvironment()->addGlobal('flash',$c->get('flash'));
-    $view->getEnvironment()->addGlobal('userTable', $c->get('userDAO')->getTable());
+    $view->getEnvironment()->addGlobal('flash',$container->get('flash'));
+    $view->getEnvironment()->addGlobal('userTable', $container->get('userDAO')->getTable());
     return $view;
 };
 
-// Flash
+/*
+ * Flash - A Framework for showing the user flash-messages
+ */
 $container['flash'] = function () {
     return new Messages();
 };
 
-// Repect Validator
+/*
+ * Respect Validator - A Framework for validating the input in a form
+ */
 $container['validator'] = function(){
     return new Validator;
 };
 
+// making own rules for the Validator available
+RespectValidator::with("Source\\Validation\\Rules\\");
+
+/*
+ * Symfony-Serializer - A JSON (De-)Serializer
+ */
 $container['serializer'] = function(){
     $encoders = array(new JsonEncoder());
     $normalizers = array(new GetSetMethodNormalizer(), new ArrayDenormalizer());
@@ -84,7 +105,12 @@ $container['serializer'] = function(){
 
 
 // Add Middleware
+
+// Middleware for making the Errors in forms available in the views
 $app->add(new ValidationErrorsMiddleware($container));
+// Middleware for making the old input values in forms available in views (after a reload)
 $app->add(new OldInputMiddleware($container));
 
-RespectValidator::with("Source\\Validation\\Rules\\");
+// more Middleware for grouped routes are added in the routes.php file.
+
+
