@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Change {{ user.getUsername }} Data</div>
                 <div class="panel-body">
-                    <form action="{{ path_for('changeData.post',{'id':user.getId}) }}" method="post">
+                    <form action="{{ path_for('changeData.post') }}" method="post">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ user.getName }}">

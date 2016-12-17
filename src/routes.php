@@ -59,16 +59,16 @@ $app->group("", function () {
 
     // ************** Change User Data - Routes **************
     // Get the change password page
-    $this->get("/userservice/change/password/{id}",
+    $this->get("/userservice/change/password",
         '\Source\Controller\Auth\Password\ChangePWController:getForm')->setName("changePW");
     // Change the password
-    $this->post("/userservice/change/password/{id}",
+    $this->post("/userservice/change/password",
         '\Source\Controller\Auth\Password\ChangePWController:changePassword')->setName("changePW.post");
     // Get the change data page
-    $this->get("/userservice/change/userdata/{id}",
+    $this->get("/userservice/change/data",
         '\Source\Controller\Auth\ChangeDataController:getForm')->setName("changeData");
     // change the data
-    $this->post("/userservice/change/userdata/{id}",
+    $this->post("/userservice/change/data",
         '\Source\Controller\Auth\ChangeDataController:changeData')->setName("changeData.post");
 
     // admin - routes
@@ -86,6 +86,12 @@ $app->group("", function () {
         // change the users pw
         $this->post("/adminservice/change/password/{id}",
             '\Source\Controller\Auth\Password\ChangeUsersPWController:changePassword')->setName("changeUsersPW.post");
+        // Get the change-users-data-page
+        $this->get("/adminservice/change/data/{id}",
+            '\Source\Controller\Auth\ChangeUsersDataController:getForm')->setName("changeUsersData");
+        // change the users data
+        $this->post("/adminservice/change/data/{id}",
+            '\Source\Controller\Auth\ChangeUsersDataController:changeData')->setName("changeUsersData.post");
         // get the usertable page
         $this->get("/userservice/usertable", '\Source\Controller\UsertableController:getTable')->setName("usertable");
         // delete a user
