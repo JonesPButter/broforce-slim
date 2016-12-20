@@ -35,8 +35,8 @@
                                 <td>{{ user.getUpdatedAt }}</td>
                                 <td>{{ user.getRole }}</td>
                                 <td>{{ user.getVerified ? 'yes' : 'no' }}</td>
-                                <td><a href="{{ path_for('changeData', {'id':user.getId}) }}" class="btn btn-info">Edit</a></td>
-                                <td><a href="{{ path_for('changePWForUser', {'id':user.getId}) }}" class="btn btn-info">Change PW</a></td>
+                                <td><a href="{{ path_for('changeUsersData', {'id':user.getId}) }}" class="btn btn-info">Edit</a></td>
+                                <td><a href="{{ path_for('changeUsersPW', {'id':user.getId}) }}" class="btn btn-info">Change PW</a></td>
                                 <td><button type="submit" class="btn btn-info">Delete</button></td>
                             </form>
                         </tr>

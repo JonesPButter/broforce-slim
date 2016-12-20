@@ -8,6 +8,7 @@
 
 namespace Source\Controller\Auth\Password;
 use Respect\Validation\Validator as Validator;
+use Source\Controller\AbstractController;
 
 class ChangeUsersPWController extends AbstractController
 {

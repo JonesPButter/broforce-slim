@@ -13,13 +13,13 @@ use Source\Controller\AbstractController;
 class ChangeDataController extends AbstractController
 {
     public function getForm($request, $response){
-        $userID = $request->getAttribute('route')->getArgument('id');
+        $userID = $_SESSION['user'];
         $user = $this->ci->get('userDAO')->getUserByID($userID);
         return $this->ci->get('view')->render($response, 'changeData.twig', array("user" => $user));
     }
 
     public function changeData($request, $response){
-        $userID = $request->getAttribute('route')->getArgument('id');
+        $userID = $_SESSION['user'];
         $name = $request->getParam('name');
         $familyname = $request->getParam('familyName');
         $email = $request->getParam('email');
@@ -43,10 +43,6 @@ class ChangeDataController extends AbstractController
         $user->setUpdatedAt(date('Y/m/d H:i:s'));
         $this->ci->get('userDAO')->updateUser($user);
         $this->ci->get('flash')->addMessage('info', 'The data was successfully updated');
-        if($user->getRole() == 'admin'){
-            return $response->withRedirect($this->ci->get('router')->pathFor('usertable'));
-        } else{
-            return $response->withRedirect($this->ci->get('router')->pathFor('changeData', ['id' => $userID]));
-        }
+        return $response->withRedirect($this->ci->get('router')->pathFor('changeData'));
     }
 }

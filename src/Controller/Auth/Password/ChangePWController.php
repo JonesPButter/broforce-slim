@@ -14,12 +14,11 @@ class ChangePWController extends AbstractController
 {
 
     public function getForm($request, $response){
-        $userID = $request->getAttribute('route')->getArgument('id');
-        return $this->ci->get('view')->render($response, 'changePassword.twig', array("id" => $userID));
+        return $this->ci->get('view')->render($response, 'changePassword.twig');
     }
 
     public function changePassword($request, $response){
-        $userID = $request->getAttribute('route')->getArgument('id');
+        $userID = $_SESSION['user'];
         // Validate form-input
         $validation = $this->ci->get('validator')->validate($request,[
             'password_old' => Validator::noWhitespace()->notEmpty(),
@@ -36,6 +35,6 @@ class ChangePWController extends AbstractController
                 $this->ci->get('flash')->addMessage('error', "Your old password wasn't correct.");
             }
         }
-        return $response->withRedirect($this->ci->get('router')->pathfor('changePW', ['id'=>$userID]));
+        return $response->withRedirect($this->ci->get('router')->pathfor('changePW'));
     }
 }

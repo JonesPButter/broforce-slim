@@ -21,8 +21,8 @@
                            aria-haspopup="true" aria-expanded="false">{{ auth.user.getUsername }} <span
                                     class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path_for('changePW', {'id':auth.user.getId}) }}">Change Password</a></li>
-                            <li><a href="{{ path_for('changeData',{'id':auth.user.getId}) }}">Change Data</a></li>
+                            <li><a href="{{ path_for('changePW') }}">Change Password</a></li>
+                            <li><a href="{{ path_for('changeData') }}">Change Data</a></li>
                             <li><a href="{{ path_for('logout') }}">Logout</a></li>
                         </ul>
                     </li>
