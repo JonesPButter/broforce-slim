@@ -9,6 +9,9 @@ use \Source\Middleware\AuthorizedMiddleware;
 use \Source\Middleware\ClientCertificateMiddleware;
 
 // **************************** ROUTES ****************************
+$app->get("/unauthorized", function($request, $response) use($container){
+    return $container->get('view')->render($response, 'unauthorized.twig');
+})->setName("unauthorized");
 
 // public Routes
 $app->group("", function () {

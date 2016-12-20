@@ -20,10 +20,10 @@ class ClientCertificateMiddleware extends Middleware
             $user = $this->container->get('userDAO')->getUserWithEmail($email);
             // user nicht vorhanden
             if($user === 0){
-                return $response->withRedirect($this->container->get('router')->pathFor('home'));
+                return $response->withRedirect($this->container->get('router')->pathFor('unauthorized'));
             }
         } else{
-            return $response->withRedirect($this->container->get('router')->pathFor('home'));
+            return $response->withRedirect($this->container->get('router')->pathFor('unauthorized'));
         }
         $response = $next($request, $response);
         return $response;
