@@ -6,6 +6,7 @@
  */
 use \Source\Middleware\AdminMiddleware;
 use \Source\Middleware\AuthorizedMiddleware;
+use \Source\Middleware\ClientCertificateMiddleware;
 
 // **************************** ROUTES ****************************
 
@@ -50,7 +51,7 @@ $app->group("", function () {
     // save the new password
     $this->post("/authentication/passwordRequest/create/{userid}/{token}",
         '\Source\Controller\Auth\Password\PWRequestController:createNewPW')->setName("createNewPW.post");
- });
+ })->add(new ClientCertificateMiddleware($container));
 
 
 // authorized Routes
